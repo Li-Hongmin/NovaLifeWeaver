@@ -12,6 +12,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let _ = DatabaseService.shared
         print("✅ 数据库已初始化")
 
+        // 运行对话测试（验证 AI 功能）
+        Task {
+            // 等待数据库初始化完成
+            try? await Task.sleep(nanoseconds: 500_000_000)
+
+            // 测试 Nova API
+            await TestConversation.testNovaAPI()
+
+            // 测试对话交互
+            await TestConversation.runTests()
+        }
+
         // 初始化 Menu Bar
         menuBarManager = MenuBarManager()
         menuBarManager?.setupMenuBar()
