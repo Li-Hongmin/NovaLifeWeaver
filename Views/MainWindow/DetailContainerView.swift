@@ -15,7 +15,7 @@ struct DetailContainerView: View {
                 HabitTrackingView()
 
             case .finance:
-                FinancialDashboardView()
+                FinancialDashboardView(userId: appState.currentUser?.id ?? "default-user")
 
             case .emotions:
                 EmotionDashboardView()
@@ -34,28 +34,18 @@ struct DetailContainerView: View {
 
 // MARK: - Placeholder Views (待实现)
 
-/// 财务管理视图（占位符）
+/// 财务管理视图
 struct FinancialDashboardView: View {
+    let userId: String
+
+    @StateObject private var viewModel = FinancialViewModel()
+
     var body: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "yensign.circle.fill")
-                .font(.system(size: 64))
-                .foregroundColor(.accentColor)
-
-            Text("财务管理")
-                .font(.title)
-
-            Text("Day 2 上午实现")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-
-            Text("功能：交易记录、预算管理、分类图表")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        TransactionListView(viewModel: viewModel, userId: userId)
+            .task {
+                await viewModel.loadTransactions(userId: userId)
+                await viewModel.loadBudgets(userId: userId)
+            }
     }
 }
 
