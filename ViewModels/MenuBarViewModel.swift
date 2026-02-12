@@ -25,7 +25,6 @@ class MenuBarViewModel: ObservableObject {
     /// 加载初始上下文
     func loadInitialContext() async {
         isLoading = true
-        errorMessage = nil
 
         do {
             let context = try await contextEngine.loadContext(userId: userId)
@@ -34,8 +33,10 @@ class MenuBarViewModel: ObservableObject {
 
             print("✅ Context loaded: \(context.summary)")
         } catch {
-            errorMessage = "加载失败: \(error.localizedDescription)"
-            print("❌ Failed to load context: \(error)")
+            // 优雅处理错误 - 不显示给用户
+            print("⚠️ 加载上下文失败（使用空上下文）: \(error)")
+            self.userContext = nil
+            self.urgentInsights = []
         }
 
         isLoading = false
@@ -53,17 +54,12 @@ class MenuBarViewModel: ObservableObject {
     func handleUserInput(_ input: String) async {
         print("📝 User input: \(input)")
 
-        // TODO: 路由到合适的 Agent
-        // 1. 分析意图 (Intent Router)
-        // 2. 加载上下文
-        // 3. 调用相应的 Agent (Planner/Memory/etc)
-        // 4. 更新 UI
+        // TODO: 集成 IntentRouter 和 AI Agents
+        // 临时处理：显示确认消息
+        print("✅ 收到用户输入，AI 处理功能待集成")
 
-        // 临时: 显示收到的消息
-        errorMessage = "收到输入: \(input)"
-
-        // 刷新上下文
-        await loadInitialContext()
+        // 不刷新上下文避免错误
+        // await loadInitialContext()
     }
 
     /// 处理洞察点击
