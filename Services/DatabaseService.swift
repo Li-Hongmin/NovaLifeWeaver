@@ -26,6 +26,7 @@ class DatabaseService {
     private let userId = Expression<String>("user_id")
     private let createdAt = Expression<Int64>("created_at")
     private let updatedAt = Expression<Int64>("updated_at")
+    private let transaction_date = Expression<Int64>("transaction_date")
     
     private init() {
         // 数据库路径（存储在用户目录）

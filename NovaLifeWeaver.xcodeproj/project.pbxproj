@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8301CE1F2F3D4F3B0067EDDC /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 8301CE1E2F3D4F3B0067EDDC /* SQLite */; };
-		8301CE212F3D4F3B0067EDDC /* SQLite-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8301CE202F3D4F3B0067EDDC /* SQLite-Dynamic */; };
 		8301CE252F3D4FAC0067EDDC /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CE242F3D4FAC0067EDDC /* DatabaseService.swift */; };
 		8301CE272F3D4FD10067EDDC /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CE262F3D4FD10067EDDC /* TestDatabase.swift */; };
 /* End PBXBuildFile section */
@@ -32,7 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8301CE212F3D4F3B0067EDDC /* SQLite-Dynamic in Frameworks */,
 				8301CE1F2F3D4F3B0067EDDC /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,7 +93,6 @@
 			name = NovaLifeWeaver;
 			packageProductDependencies = (
 				8301CE1E2F3D4F3B0067EDDC /* SQLite */,
-				8301CE202F3D4F3B0067EDDC /* SQLite-Dynamic */,
 			);
 			productName = NovaLifeWeaver;
 			productReference = 8301CE0F2F3D4DC80067EDDC /* NovaLifeWeaver.app */;
@@ -384,13 +381,7 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8301CE1D2F3D4F3B0067EDDC /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
-		};
-		8301CE202F3D4F3B0067EDDC /* SQLite-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8301CE1D2F3D4F3B0067EDDC /* XCRemoteSwiftPackageReference "SQLite" */;
-			productName = "SQLite-Dynamic";
-		};
-/* End XCSwiftPackageProductDependency section */
+		};/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8301CE072F3D4DC80067EDDC /* Project object */;
 }
