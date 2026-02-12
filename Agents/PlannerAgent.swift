@@ -1,4 +1,5 @@
 import Foundation
+import EventKit
 
 /// Planner Agent - 智能日程规划（使用 Nova 2 Lite）
 class PlannerAgent {

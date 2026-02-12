@@ -32,7 +32,7 @@ struct UserContext: Codable {
     // MARK: - 日程数据
     let upcomingEvents: [Event]              // 未来 14 天
     let todaySchedule: [Event]
-    let conflictingEvents: [(Event, Event)]
+    let conflictingEvents: [EventConflict]   // 使用结构体代替 tuple
 
     // MARK: - AI 洞察
     let recentInsights: [Insight]            // 最新 5 条
@@ -65,7 +65,7 @@ struct UserContext: Codable {
         emotionTrend: EmotionTrend,
         upcomingEvents: [Event],
         todaySchedule: [Event],
-        conflictingEvents: [(Event, Event)],
+        conflictingEvents: [EventConflict],
         recentInsights: [Insight],
         urgentInsights: [Insight],
         correlations: [Correlation],
@@ -241,4 +241,15 @@ enum EmotionTrend: String, Codable {
     case stable         // 稳定
     case declining      // 下降中
     case volatile       // 波动
+}
+
+/// 事件冲突（替代 tuple 以支持 Codable）
+struct EventConflict: Codable {
+    let event1: Event
+    let event2: Event
+    
+    init(event1: Event, event2: Event) {
+        self.event1 = event1
+        self.event2 = event2
+    }
 }

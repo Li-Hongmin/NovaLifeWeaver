@@ -32,7 +32,7 @@ class ContextEngine {
         async let habitData = loadHabitData(userId)
         async let financialData = loadFinancialData(userId)
         async let emotionData = loadEmotionData(userId)
-        async let eventData = loadEventData(userId)
+        async let eventData = loadContextEventData(userId)
         async let insightData = loadInsightData(userId)
         async let correlations = loadCorrelations(userId)
 
@@ -56,7 +56,7 @@ class ContextEngine {
             emotionTrend: emotionData.trend,
             upcomingEvents: eventData.upcoming,
             todaySchedule: eventData.today,
-            conflictingEvents: eventData.conflicts,
+            conflictingEvents: eventData.conflicts.map { EventConflict(event1: $0.0, event2: $0.1) },
             recentInsights: insightData.insights,
             urgentInsights: insightData.urgent,
             correlations: correlations,
@@ -161,12 +161,12 @@ class ContextEngine {
     }
 
     /// 加载事件数据
-    private func loadEventData(_ userId: String) async throws -> EventData {
+    private func loadContextEventData(_ userId: String) async throws -> ContextEventData {
         // TODO: 实现数据库查询和 EventKit 集成
         // async let dbEvents = db.fetchUpcomingEvents(userId, days: 14)
         // async let calendarEvents = eventKitService.fetchUpcomingEvents(days: 14)
 
-        return EventData(
+        return ContextEventData(
             upcoming: [],
             today: [],
             conflicts: []
@@ -225,7 +225,7 @@ private struct EmotionData {
     let trend: EmotionTrend
 }
 
-private struct EventData {
+private struct ContextEventData {
     let upcoming: [Event]
     let today: [Event]
     let conflicts: [(Event, Event)]
