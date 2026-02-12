@@ -327,11 +327,11 @@ final class InsightEngine: InsightEngineProtocol {
 
             let actions = context.conflictingEvents.prefix(3).map { conflict in
                 SuggestedAction(
-                    action: "重新安排：\(conflict.0.title) 或 \(conflict.1.title)",
+                    action: "重新安排：\(conflict.event1.title) 或 \(conflict.event2.title)",
                     type: "resolve_conflict",
                     parameters: [
-                        "event1_id": conflict.0.id,
-                        "event2_id": conflict.1.id
+                        "event1_id": conflict.event1.id,
+                        "event2_id": conflict.event2.id
                     ],
                     priority: 5
                 )
