@@ -95,97 +95,215 @@ class ContextEngine {
 
     /// 加载用户信息
     private func loadUser(_ userId: String) async throws -> User {
-        // TODO: 从数据库加载
-        // 临时返回模拟数据
-        return User(
-            id: userId,
-            name: "李鴻敏",
-            timezone: "Asia/Tokyo",
-            language: "zh-CN"
-        )
+        return try await db.fetchUser(userId)
     }
 
     /// 加载目标数据
     private func loadGoalData(_ userId: String) async throws -> GoalData {
-        // TODO: 实现数据库查询
-        // async let activeGoals = db.fetchActiveGoals(userId)
-        // async let completedCount = db.countCompletedGoals(userId)
-        // async let totalCount = db.countTotalGoals(userId)
+        // 并行加载目标数据
+        async let activeGoals = db.fetchActiveGoals(userId: userId)
+        async let completedCount = db.countCompletedGoals(userId: userId)
+        async let totalCount = db.countTotalGoals(userId: userId)
 
-        // 临时返回空数据
+        let goals = try await activeGoals
+        let completed = try await completedCount
+        let total = try await totalCount
+
+        let rate = total > 0 ? Double(completed) / Double(total) : 0.0
+
         return GoalData(
-            goals: [],
-            completedCount: 0,
-            totalCount: 0,
-            completionRate: 0.0
+            goals: goals,
+            completedCount: completed,
+            totalCount: total,
+            completionRate: rate
         )
     }
 
     /// 加载习惯数据
     private func loadHabitData(_ userId: String) async throws -> HabitData {
-        // TODO: 实现数据库查询
+        // 并行加载习惯数据
+        async let activeHabits = db.fetchActiveHabits(userId: userId)
+        async let todayCompletions = db.fetchTodayCompletions(userId: userId)
+
+        let habits = try await activeHabits
+        let completions = try await todayCompletions
+
+        // 构建今日连续状态
+        var streakStatus: [String: Int] = [:]
+        for habit in habits {
+            streakStatus[habit.id] = habit.streak
+        }
+
+        // 计算总体成功率
+        let totalRate = habits.isEmpty ? 0.0 : habits.reduce(0.0) { $0 + $1.successRate } / Double(habits.count)
+
         return HabitData(
-            habits: [],
-            todayCompletions: [],
-            streakStatus: [:],
-            successRate: 0.0
+            habits: habits,
+            todayCompletions: completions,
+            streakStatus: streakStatus,
+            successRate: totalRate
         )
     }
 
     /// 加载财务数据
     private func loadFinancialData(_ userId: String) async throws -> FinancialData {
-        // TODO: 实现数据库查询
-        // async let budget = db.fetchCurrentBudget(userId)
-        // async let records = db.fetchRecentFinancials(userId, days: 30)
+        // 并行加载财务数据
+        async let budget = db.fetchCurrentBudget(userId: userId)
+        async let records = db.fetchRecentFinancials(userId: userId, days: 30)
+
+        let currentBudget = try await budget
+        let financialRecords = try await records
+
+        // 计算分类支出
+        let now = Date()
+        let monthStart = Calendar.current.date(byAdding: .day, value: -30, to: now)!
+        let categorySpending = try await db.calculateCategorySpending(userId: userId, from: monthStart, to: now)
+
+        // 计算总支出
+        let totalSpent = financialRecords.reduce(0.0) { $0 + $1.amount }
+
+        // 生成预算警告
+        var alerts: [BudgetAlert] = []
+        if let budget = currentBudget {
+            let usageRate = totalSpent / budget.totalBudget
+            if usageRate >= budget.alertThreshold {
+                let percentage = usageRate * 100
+                alerts.append(BudgetAlert(
+                    category: "总预算",
+                    usageRate: usageRate,
+                    threshold: budget.alertThreshold,
+                    message: String(format: "已使用 %.0f%% 预算 (¥%.0f / ¥%.0f)", percentage, totalSpent, budget.totalBudget)
+                ))
+            }
+
+            // 检查各分类预算
+            if let categoryBudgets = budget.categoryBudgets {
+                for (category, categoryBudget) in categoryBudgets {
+                    let categorySpent = categorySpending[category] ?? 0
+                    let categoryRate = categorySpent / categoryBudget
+                    if categoryRate >= budget.alertThreshold {
+                        let percentage = categoryRate * 100
+                        alerts.append(BudgetAlert(
+                            category: category,
+                            usageRate: categoryRate,
+                            threshold: budget.alertThreshold,
+                            message: String(format: "%@ 已使用 %.0f%% 预算 (¥%.0f / ¥%.0f)", category, percentage, categorySpent, categoryBudget)
+                        ))
+                    }
+                }
+            }
+        }
 
         return FinancialData(
-            budget: nil,
-            records: [],
-            categorySpending: [:],
-            alerts: [],
-            totalSpent: 0
+            budget: currentBudget,
+            records: financialRecords,
+            categorySpending: categorySpending,
+            alerts: alerts,
+            totalSpent: totalSpent
         )
     }
 
     /// 加载情绪数据
     private func loadEmotionData(_ userId: String) async throws -> EmotionData {
-        // TODO: 实现数据库查询
-        // async let records = db.fetchRecentEmotions(userId, days: 7)
+        // 并行加载情绪数据
+        async let records = db.fetchRecentEmotions(userId: userId, days: 7)
+        async let average = db.calculateAverageEmotion(userId: userId, days: 7)
+
+        let emotionRecords = try await records
+        let avgScore = try await average
+
+        // 提取触发因素（出现频率最高的前3个）
+        let triggerFrequency = emotionRecords.reduce(into: [String: Int]()) { counts, record in
+            if let trigger = record.trigger {
+                counts[trigger, default: 0] += 1
+            }
+        }
+        let triggers = triggerFrequency.sorted { $0.value > $1.value }.prefix(3).map { $0.key }
+
+        // 计算趋势（对比最近3天和之前4天的平均值）
+        let trend: EmotionTrend
+        if emotionRecords.count >= 2 {
+            let recentRecords = emotionRecords.prefix(3)
+            let olderRecords = emotionRecords.dropFirst(3)
+
+            let recentAvg = recentRecords.isEmpty ? 0.0 : recentRecords.reduce(0.0) { $0 + $1.score } / Double(recentRecords.count)
+            let olderAvg = olderRecords.isEmpty ? 0.0 : olderRecords.reduce(0.0) { $0 + $1.score } / Double(olderRecords.count)
+
+            let diff = recentAvg - olderAvg
+            if diff > 0.1 {
+                trend = .improving
+            } else if diff < -0.1 {
+                trend = .declining
+            } else {
+                trend = .stable
+            }
+        } else {
+            trend = .stable
+        }
 
         return EmotionData(
-            records: [],
-            average: 0.0,
-            triggers: [],
-            trend: .stable
+            records: emotionRecords,
+            average: avgScore,
+            triggers: triggers,
+            trend: trend
         )
     }
 
     /// 加载事件数据
     private func loadContextEventData(_ userId: String) async throws -> ContextEventData {
-        // TODO: 实现数据库查询和 EventKit 集成
-        // async let dbEvents = db.fetchUpcomingEvents(userId, days: 14)
-        // async let calendarEvents = eventKitService.fetchUpcomingEvents(days: 14)
+        // 加载未来14天的事件
+        let upcomingEvents = try await db.fetchUpcomingEvents(userId: userId, days: 14)
+
+        // 筛选今日事件
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+
+        let todayEvents = upcomingEvents.filter { event in
+            event.startTime >= today && event.startTime < tomorrow
+        }
+
+        // 检测时间冲突（两个事件时间重叠）
+        var conflicts: [(Event, Event)] = []
+        for i in 0..<upcomingEvents.count {
+            for j in (i+1)..<upcomingEvents.count {
+                let event1 = upcomingEvents[i]
+                let event2 = upcomingEvents[j]
+
+                // 检查时间是否重叠
+                if let end1 = event1.endTime {
+                    if event2.startTime < end1 && event1.startTime < (event2.endTime ?? event2.startTime.addingTimeInterval(3600)) {
+                        conflicts.append((event1, event2))
+                    }
+                }
+            }
+        }
 
         return ContextEventData(
-            upcoming: [],
-            today: [],
-            conflicts: []
+            upcoming: upcomingEvents,
+            today: todayEvents,
+            conflicts: conflicts
         )
     }
 
     /// 加载洞察数据
     private func loadInsightData(_ userId: String) async throws -> InsightData {
-        // TODO: 实现数据库查询
+        // 并行加载洞察数据
+        async let insights = db.fetchInsights(userId: userId, limit: 10)
+        async let urgent = db.fetchUrgentInsights(userId: userId)
+
+        let allInsights = try await insights
+        let urgentInsights = try await urgent
+
         return InsightData(
-            insights: [],
-            urgent: []
+            insights: allInsights,
+            urgent: urgentInsights
         )
     }
 
     /// 加载关联数据
     private func loadCorrelations(_ userId: String) async throws -> [Correlation] {
-        // TODO: 实现数据库查询
-        return []
+        return try await db.fetchCorrelations(userId: userId)
     }
 }
 
