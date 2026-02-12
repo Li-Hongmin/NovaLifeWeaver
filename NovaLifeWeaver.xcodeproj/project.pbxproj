@@ -6,13 +6,91 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		12E37C2CC9A9C92A2D517294 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E82BEE90B4415025C49D89 /* AppDelegate.swift */; };
+		54F5A39F2063ACEC98984AD3 /* UIProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE20475A1949E837F173ED /* UIProtocols.swift */; };
+		8301CE1F2F3D4F3B0067EDDC /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 8301CE1E2F3D4F3B0067EDDC /* SQLite */; };
+		8301CECB2F3D610C0067EDDC /* HabitTrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC12F3D610C0067EDDC /* HabitTrackingViewModel.swift */; };
+		8301CECC2F3D610C0067EDDC /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEAF2F3D610C0067EDDC /* Insight.swift */; };
+		8301CECD2F3D610C0067EDDC /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEAD2F3D610C0067EDDC /* Goal.swift */; };
+		8301CECE2F3D610C0067EDDC /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB42F3D610C0067EDDC /* DatabaseProtocol.swift */; };
+		8301CECF2F3D610C0067EDDC /* CorrelationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEA62F3D610C0067EDDC /* CorrelationEngine.swift */; };
+		8301CED02F3D610C0067EDDC /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC82F3D610C0067EDDC /* MenuBarView.swift */; };
+		8301CED12F3D610C0067EDDC /* BedrockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB72F3D610C0067EDDC /* BedrockService.swift */; };
+		8301CED22F3D610C0067EDDC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC92F3D610C0067EDDC /* SettingsView.swift */; };
+		8301CED32F3D610C0067EDDC /* ContextEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEA52F3D610C0067EDDC /* ContextEngine.swift */; };
+		8301CED42F3D610C0067EDDC /* UserContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB12F3D610C0067EDDC /* UserContext.swift */; };
+		8301CED52F3D610C0067EDDC /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEAE2F3D610C0067EDDC /* Habit.swift */; };
+		8301CED62F3D610C0067EDDC /* MenuBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC22F3D610C0067EDDC /* MenuBarViewModel.swift */; };
+		8301CED72F3D610C0067EDDC /* HabitTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC72F3D610C0067EDDC /* HabitTrackingView.swift */; };
+		8301CED82F3D610C0067EDDC /* ContextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC42F3D610C0067EDDC /* ContextDisplayView.swift */; };
+		8301CED92F3D610C0067EDDC /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC52F3D610C0067EDDC /* ConversationView.swift */; };
+		8301CEDA2F3D610C0067EDDC /* TestDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEBD2F3D610C0067EDDC /* TestDatabase.swift */; };
+		8301CEDB2F3D610C0067EDDC /* TestInsightEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEBE2F3D610C0067EDDC /* TestInsightEngine.swift */; };
+		8301CEDC2F3D610C0067EDDC /* InsightEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEA72F3D610C0067EDDC /* InsightEngine.swift */; };
+		8301CEDD2F3D610C0067EDDC /* Correlation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEA92F3D610C0067EDDC /* Correlation.swift */; };
+		8301CEDE2F3D610C0067EDDC /* AgentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB32F3D610C0067EDDC /* AgentProtocols.swift */; };
+		8301CEDF2F3D610C0067EDDC /* EngineProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB52F3D610C0067EDDC /* EngineProtocols.swift */; };
+		8301CEE02F3D610C0067EDDC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB02F3D610C0067EDDC /* User.swift */; };
+		8301CEE12F3D610C0067EDDC /* GoalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC02F3D610C0067EDDC /* GoalListViewModel.swift */; };
+		8301CEE22F3D610C0067EDDC /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB82F3D610C0067EDDC /* DatabaseService.swift */; };
+		8301CEE32F3D610C0067EDDC /* TestCorrelationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEBC2F3D610C0067EDDC /* TestCorrelationEngine.swift */; };
+		8301CEE42F3D610C0067EDDC /* TestBedrockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEBB2F3D610C0067EDDC /* TestBedrockService.swift */; };
+		8301CEE52F3D610C0067EDDC /* FinancialRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEAC2F3D610C0067EDDC /* FinancialRecord.swift */; };
+		8301CEE62F3D610C0067EDDC /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEAB2F3D610C0067EDDC /* Event.swift */; };
+		8301CEE72F3D610C0067EDDC /* PlannerAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEA32F3D610C0067EDDC /* PlannerAgent.swift */; };
+		8301CEE82F3D610C0067EDDC /* GoalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEC62F3D610C0067EDDC /* GoalListView.swift */; };
+		8301CEE92F3D610C0067EDDC /* EventKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEB92F3D610C0067EDDC /* EventKitService.swift */; };
+		8301CEEA2F3D610C0067EDDC /* EmotionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEAA2F3D610C0067EDDC /* EmotionRecord.swift */; };
+		87DE7F53A7576418751A900A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6EA8F586FFAB9F454CF3AE /* AppState.swift */; };
+		D0113F3B012366545C9A0CE2 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D632724F563AF77C9B02E781 /* MenuBarManager.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		17E82BEE90B4415025C49D89 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = App/AppDelegate.swift; sourceTree = "<group>"; };
+		3DCE20475A1949E837F173ED /* UIProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIProtocols.swift; sourceTree = "<group>"; };
 		8301CE0F2F3D4DC80067EDDC /* NovaLifeWeaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NovaLifeWeaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8301CEA32F3D610C0067EDDC /* PlannerAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerAgent.swift; sourceTree = "<group>"; };
+		8301CEA52F3D610C0067EDDC /* ContextEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextEngine.swift; sourceTree = "<group>"; };
+		8301CEA62F3D610C0067EDDC /* CorrelationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrelationEngine.swift; sourceTree = "<group>"; };
+		8301CEA72F3D610C0067EDDC /* InsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightEngine.swift; sourceTree = "<group>"; };
+		8301CEA92F3D610C0067EDDC /* Correlation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Correlation.swift; sourceTree = "<group>"; };
+		8301CEAA2F3D610C0067EDDC /* EmotionRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionRecord.swift; sourceTree = "<group>"; };
+		8301CEAB2F3D610C0067EDDC /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		8301CEAC2F3D610C0067EDDC /* FinancialRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialRecord.swift; sourceTree = "<group>"; };
+		8301CEAD2F3D610C0067EDDC /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		8301CEAE2F3D610C0067EDDC /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		8301CEAF2F3D610C0067EDDC /* Insight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insight.swift; sourceTree = "<group>"; };
+		8301CEB02F3D610C0067EDDC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8301CEB12F3D610C0067EDDC /* UserContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContext.swift; sourceTree = "<group>"; };
+		8301CEB32F3D610C0067EDDC /* AgentProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProtocols.swift; sourceTree = "<group>"; };
+		8301CEB42F3D610C0067EDDC /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		8301CEB52F3D610C0067EDDC /* EngineProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineProtocols.swift; sourceTree = "<group>"; };
+		8301CEB72F3D610C0067EDDC /* BedrockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedrockService.swift; sourceTree = "<group>"; };
+		8301CEB82F3D610C0067EDDC /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		8301CEB92F3D610C0067EDDC /* EventKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventKitService.swift; sourceTree = "<group>"; };
+		8301CEBB2F3D610C0067EDDC /* TestBedrockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBedrockService.swift; sourceTree = "<group>"; };
+		8301CEBC2F3D610C0067EDDC /* TestCorrelationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCorrelationEngine.swift; sourceTree = "<group>"; };
+		8301CEBD2F3D610C0067EDDC /* TestDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDatabase.swift; sourceTree = "<group>"; };
+		8301CEBE2F3D610C0067EDDC /* TestInsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInsightEngine.swift; sourceTree = "<group>"; };
+		8301CEC02F3D610C0067EDDC /* GoalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListViewModel.swift; sourceTree = "<group>"; };
+		8301CEC12F3D610C0067EDDC /* HabitTrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackingViewModel.swift; sourceTree = "<group>"; };
+		8301CEC22F3D610C0067EDDC /* MenuBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarViewModel.swift; sourceTree = "<group>"; };
+		8301CEC42F3D610C0067EDDC /* ContextDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDisplayView.swift; sourceTree = "<group>"; };
+		8301CEC52F3D610C0067EDDC /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		8301CEC62F3D610C0067EDDC /* GoalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalListView.swift; sourceTree = "<group>"; };
+		8301CEC72F3D610C0067EDDC /* HabitTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackingView.swift; sourceTree = "<group>"; };
+		8301CEC82F3D610C0067EDDC /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		8301CEC92F3D610C0067EDDC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8C6EA8F586FFAB9F454CF3AE /* AppState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppState.swift; path = App/AppState.swift; sourceTree = "<group>"; };
+		D632724F563AF77C9B02E781 /* MenuBarManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MenuBarManager.swift; path = App/MenuBarManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8301CE112F3D4DC80067EDDC /* NovaLifeWeaver */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = NovaLifeWeaver;
 			sourceTree = "<group>";
 		};
@@ -23,17 +101,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8301CE1F2F3D4F3B0067EDDC /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79A3ACECF8B20695B78A9AF2 /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
 		8301CE062F3D4DC80067EDDC = {
 			isa = PBXGroup;
 			children = (
+				8301CEA42F3D610C0067EDDC /* Agents */,
+				8301CEA82F3D610C0067EDDC /* Engines */,
+				8301CEB22F3D610C0067EDDC /* Models */,
+				8301CEB62F3D610C0067EDDC /* Protocols */,
+				8301CEBA2F3D610C0067EDDC /* Services */,
+				8301CEBF2F3D610C0067EDDC /* Tests */,
+				8301CEC32F3D610C0067EDDC /* ViewModels */,
+				8301CECA2F3D610C0067EDDC /* Views */,
 				8301CE112F3D4DC80067EDDC /* NovaLifeWeaver */,
 				8301CE102F3D4DC80067EDDC /* Products */,
+				79A3ACECF8B20695B78A9AF2 /* App */,
 			);
 			sourceTree = "<group>";
 		};
@@ -43,6 +138,95 @@
 				8301CE0F2F3D4DC80067EDDC /* NovaLifeWeaver.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8301CEA42F3D610C0067EDDC /* Agents */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEA32F3D610C0067EDDC /* PlannerAgent.swift */,
+			);
+			path = Agents;
+			sourceTree = "<group>";
+		};
+		8301CEA82F3D610C0067EDDC /* Engines */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEA52F3D610C0067EDDC /* ContextEngine.swift */,
+				8301CEA62F3D610C0067EDDC /* CorrelationEngine.swift */,
+				8301CEA72F3D610C0067EDDC /* InsightEngine.swift */,
+			);
+			path = Engines;
+			sourceTree = "<group>";
+		};
+		8301CEB22F3D610C0067EDDC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEA92F3D610C0067EDDC /* Correlation.swift */,
+				8301CEAA2F3D610C0067EDDC /* EmotionRecord.swift */,
+				8301CEAB2F3D610C0067EDDC /* Event.swift */,
+				8301CEAC2F3D610C0067EDDC /* FinancialRecord.swift */,
+				8301CEAD2F3D610C0067EDDC /* Goal.swift */,
+				8301CEAE2F3D610C0067EDDC /* Habit.swift */,
+				8301CEAF2F3D610C0067EDDC /* Insight.swift */,
+				8301CEB02F3D610C0067EDDC /* User.swift */,
+				8301CEB12F3D610C0067EDDC /* UserContext.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8301CEB62F3D610C0067EDDC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEB32F3D610C0067EDDC /* AgentProtocols.swift */,
+				8301CEB42F3D610C0067EDDC /* DatabaseProtocol.swift */,
+				8301CEB52F3D610C0067EDDC /* EngineProtocols.swift */,
+				3DCE20475A1949E837F173ED /* UIProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		8301CEBA2F3D610C0067EDDC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEB72F3D610C0067EDDC /* BedrockService.swift */,
+				8301CEB82F3D610C0067EDDC /* DatabaseService.swift */,
+				8301CEB92F3D610C0067EDDC /* EventKitService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		8301CEBF2F3D610C0067EDDC /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEBB2F3D610C0067EDDC /* TestBedrockService.swift */,
+				8301CEBC2F3D610C0067EDDC /* TestCorrelationEngine.swift */,
+				8301CEBD2F3D610C0067EDDC /* TestDatabase.swift */,
+				8301CEBE2F3D610C0067EDDC /* TestInsightEngine.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		8301CEC32F3D610C0067EDDC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEC02F3D610C0067EDDC /* GoalListViewModel.swift */,
+				8301CEC12F3D610C0067EDDC /* HabitTrackingViewModel.swift */,
+				8301CEC22F3D610C0067EDDC /* MenuBarViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8301CECA2F3D610C0067EDDC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8301CEC42F3D610C0067EDDC /* ContextDisplayView.swift */,
+				8301CEC52F3D610C0067EDDC /* ConversationView.swift */,
+				8301CEC62F3D610C0067EDDC /* GoalListView.swift */,
+				8301CEC72F3D610C0067EDDC /* HabitTrackingView.swift */,
+				8301CEC82F3D610C0067EDDC /* MenuBarView.swift */,
+				8301CEC92F3D610C0067EDDC /* SettingsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +249,7 @@
 			);
 			name = NovaLifeWeaver;
 			packageProductDependencies = (
+				8301CE1E2F3D4F3B0067EDDC /* SQLite */,
 			);
 			productName = NovaLifeWeaver;
 			productReference = 8301CE0F2F3D4DC80067EDDC /* NovaLifeWeaver.app */;
@@ -94,6 +279,9 @@
 			);
 			mainGroup = 8301CE062F3D4DC80067EDDC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8301CE1D2F3D4F3B0067EDDC /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8301CE102F3D4DC80067EDDC /* Products */;
 			projectDirPath = "";
@@ -119,6 +307,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8301CECB2F3D610C0067EDDC /* HabitTrackingViewModel.swift in Sources */,
+				8301CECC2F3D610C0067EDDC /* Insight.swift in Sources */,
+				8301CECD2F3D610C0067EDDC /* Goal.swift in Sources */,
+				8301CECE2F3D610C0067EDDC /* DatabaseProtocol.swift in Sources */,
+				8301CECF2F3D610C0067EDDC /* CorrelationEngine.swift in Sources */,
+				8301CED02F3D610C0067EDDC /* MenuBarView.swift in Sources */,
+				8301CED12F3D610C0067EDDC /* BedrockService.swift in Sources */,
+				8301CED22F3D610C0067EDDC /* SettingsView.swift in Sources */,
+				8301CED32F3D610C0067EDDC /* ContextEngine.swift in Sources */,
+				8301CED42F3D610C0067EDDC /* UserContext.swift in Sources */,
+				8301CED52F3D610C0067EDDC /* Habit.swift in Sources */,
+				8301CED62F3D610C0067EDDC /* MenuBarViewModel.swift in Sources */,
+				8301CED72F3D610C0067EDDC /* HabitTrackingView.swift in Sources */,
+				8301CED82F3D610C0067EDDC /* ContextDisplayView.swift in Sources */,
+				8301CED92F3D610C0067EDDC /* ConversationView.swift in Sources */,
+				8301CEDA2F3D610C0067EDDC /* TestDatabase.swift in Sources */,
+				8301CEDB2F3D610C0067EDDC /* TestInsightEngine.swift in Sources */,
+				8301CEDC2F3D610C0067EDDC /* InsightEngine.swift in Sources */,
+				8301CEDD2F3D610C0067EDDC /* Correlation.swift in Sources */,
+				8301CEDE2F3D610C0067EDDC /* AgentProtocols.swift in Sources */,
+				8301CEDF2F3D610C0067EDDC /* EngineProtocols.swift in Sources */,
+				8301CEE02F3D610C0067EDDC /* User.swift in Sources */,
+				8301CEE12F3D610C0067EDDC /* GoalListViewModel.swift in Sources */,
+				8301CEE22F3D610C0067EDDC /* DatabaseService.swift in Sources */,
+				8301CEE32F3D610C0067EDDC /* TestCorrelationEngine.swift in Sources */,
+				8301CEE42F3D610C0067EDDC /* TestBedrockService.swift in Sources */,
+				8301CEE52F3D610C0067EDDC /* FinancialRecord.swift in Sources */,
+				8301CEE62F3D610C0067EDDC /* Event.swift in Sources */,
+				8301CEE72F3D610C0067EDDC /* PlannerAgent.swift in Sources */,
+				8301CEE82F3D610C0067EDDC /* GoalListView.swift in Sources */,
+				8301CEE92F3D610C0067EDDC /* EventKitService.swift in Sources */,
+				8301CEEA2F3D610C0067EDDC /* EmotionRecord.swift in Sources */,
+				12E37C2CC9A9C92A2D517294 /* AppDelegate.swift in Sources */,
+				87DE7F53A7576418751A900A /* AppState.swift in Sources */,
+				D0113F3B012366545C9A0CE2 /* MenuBarManager.swift in Sources */,
+				54F5A39F2063ACEC98984AD3 /* UIProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +555,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8301CE1D2F3D4F3B0067EDDC /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8301CE1E2F3D4F3B0067EDDC /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8301CE1D2F3D4F3B0067EDDC /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8301CE072F3D4DC80067EDDC /* Project object */;
 }

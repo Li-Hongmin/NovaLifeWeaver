@@ -1,0 +1,12 @@
+{
+  "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/ViewModels/HabitTrackingViewModel.swift" : {
+    "abi-baseline-json" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver.abi.json",
+    "const-values" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver-primary.swiftconstvalues",
+    "dependencies" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver-primary.d",
+    "diagnostics" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver-primary.dia",
+    "objc-header" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver-Swift.h",
+    "swiftdoc" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver.swiftdoc",
+    "swiftmodule" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver.swiftmodule",
+    "swiftsourceinfo" : "/Users/lihongmin/clawd/projects/NovaLifeWeaver/NovaLifeWeaver/build/NovaLifeWeaver.build/Release/NovaLifeWeaver.build/Objects-normal/x86_64/NovaLifeWeaver.swiftsourceinfo"
+  }
+}
