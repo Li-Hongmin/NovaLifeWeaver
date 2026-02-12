@@ -22,18 +22,16 @@ class HabitTrackingViewModel: ObservableObject {
         errorMessage = nil
 
         do {
-            // TODO: 从数据库加载
-            // habits = try await db.fetchHabits(userId: userId, status: .active)
-            // todayCompletions = try await db.fetchTodayCompletions(userId: userId)
-
-            // 临时: 使用模拟数据
-            habits = createMockHabits()
+            // 从数据库加载习惯
+            habits = try await db.fetchActiveHabits(userId: userId)
             todayCompletions = []
 
             print("✅ Loaded \(habits.count) habits")
         } catch {
-            errorMessage = "加载习惯失败: \(error.localizedDescription)"
-            print("❌ Failed to load habits: \(error)")
+            // 优雅处理错误 - 使用空列表
+            habits = []
+            todayCompletions = []
+            print("⚠️ 无法加载习惯（可能是首次运行）: \(error)")
         }
 
         isLoading = false

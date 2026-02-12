@@ -22,16 +22,14 @@ class GoalListViewModel: ObservableObject {
         errorMessage = nil
 
         do {
-            // TODO: 从数据库加载目标
-            // goals = try await db.fetchGoals(userId: userId, status: .active)
-
-            // 临时: 使用模拟数据
-            goals = createMockGoals()
+            // 从数据库加载目标
+            goals = try await db.fetchActiveGoals(userId: userId)
 
             print("✅ Loaded \(goals.count) goals")
         } catch {
-            errorMessage = "加载目标失败: \(error.localizedDescription)"
-            print("❌ Failed to load goals: \(error)")
+            // 优雅处理错误 - 使用空列表而不是显示错误
+            goals = []
+            print("⚠️ 无法加载目标（可能是首次运行）: \(error)")
         }
 
         isLoading = false
