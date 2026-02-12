@@ -21,10 +21,15 @@ class HabitTrackingViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
-        // 暂时使用空列表（数据库查询待实现）
-        habits = []
-        todayCompletions = []
-        print("⚠️ 习惯数据加载待实现")
+        do {
+            habits = try await db.fetchActiveHabits(userId: userId)
+            todayCompletions = try await db.fetchTodayCompletions(userId: userId)
+            print("✅ Loaded \(habits.count) habits")
+        } catch {
+            habits = []
+            todayCompletions = []
+            print("⚠️ 无法加载习惯: \(error)")
+        }
 
         isLoading = false
     }
