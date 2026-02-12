@@ -8,10 +8,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("🚀 NovaLife Weaver 启动中...")
 
-        // 初始化数据库（确保表已创建）
-        Task {
-            await initializeDatabase()
-        }
+        // 初始化数据库（DatabaseService.shared 的 init 会自动创建表）
+        let _ = DatabaseService.shared
+        print("✅ 数据库已初始化")
 
         // 初始化 Menu Bar
         menuBarManager = MenuBarManager()
@@ -37,17 +36,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     /// 初始化数据库
     private func initializeDatabase() async {
-        do {
-            // 1. 确保数据库已连接（DatabaseService.shared 的 init 会创建表）
-            let _ = DatabaseService.shared
+        // 确保数据库已连接（DatabaseService.shared 的 init 会创建表）
+        let _ = DatabaseService.shared
 
-            // 2. 运行测试（创建示例数据）
-            await TestDatabase.runTests()
+        // 运行测试（创建示例数据）
+        await TestDatabase.runTests()
 
-            print("✅ 数据库初始化成功")
-        } catch {
-            print("❌ 数据库初始化失败：\(error)")
-        }
+        print("✅ 数据库初始化成功")
     }
 
     func applicationWillTerminate(_ notification: Notification) {

@@ -2,11 +2,11 @@ import Foundation
 
 /// 测试数据库功能
 class TestDatabase {
-    static func runTests() {
+    static func runTests() async {
         print("\n🧪 ==================== 数据库测试开始 ====================\n")
-        
+
         let db = DatabaseService.shared
-        
+
         do {
             // 测试 1：创建用户
             print("📝 测试 1：创建用户")
@@ -15,7 +15,7 @@ class TestDatabase {
             
             // 测试 2：查询用户
             print("\n📝 测试 2：查询用户")
-            if let user = try db.getUser(id: userId) {
+            if let user = try await db.getUser(id: userId) {
                 print("   ✅ 用户名: \(user.name)")
                 print("   ✅ 时区: \(user.timezone)")
             }

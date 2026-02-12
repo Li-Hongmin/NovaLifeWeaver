@@ -275,7 +275,7 @@ class DatabaseService {
     
     private func createIndexes() throws {
         // 财务记录索引
-        try db?.run(financialRecords.createIndex(userId, transaction_date, ifNotExists: true))
+        try db?.run(financialRecords.createIndex(userId, ifNotExists: true))
         try db?.run(financialRecords.createIndex(Expression<String>("category"), ifNotExists: true))
         
         // 情绪记录索引
@@ -322,18 +322,24 @@ extension DatabaseService {
         return userId
     }
     
-    func getUser(id: String) throws -> User? {
+    func getUser(id: String) async throws -> User? {
         guard let db = db else { throw DatabaseError.notConnected }
-        
-        if let row = try db.pluck(users.filter(self.id == id)) {
-            return User(
-                id: row[self.id],
-                name: row[Expression<String>("name")],
-                timezone: row[Expression<String?>("timezone")] ?? "Asia/Tokyo",
-                createdAt: Date(timeIntervalSince1970: TimeInterval(row[createdAt]))
-            )
+
+        guard let row = try db.pluck(users.filter(self.id == id)) else {
+            return nil
         }
-        return nil
+
+        return User(
+            id: row[self.id],
+            name: row[Expression<String>("name")],
+            timezone: row[Expression<String?>("timezone")] ?? "Asia/Tokyo",
+            language: row[Expression<String?>("language")] ?? "zh-CN",
+            totalGoals: row[Expression<Int?>("total_goals")] ?? 0,
+            completedGoals: row[Expression<Int?>("completed_goals")] ?? 0,
+            activeHabits: row[Expression<Int?>("active_habits")] ?? 0,
+            createdAt: Date(timeIntervalSince1970: TimeInterval(row[createdAt])),
+            updatedAt: Date(timeIntervalSince1970: TimeInterval(row[updatedAt]))
+        )
     }
 }
 
@@ -394,14 +400,9 @@ extension DatabaseService {
     }
 }
 
-// MARK: - Models
-
-struct User {
-    let id: String
-    let name: String
-    let timezone: String
-    let createdAt: Date
-}
+// MARK: - Helper Models
+// Note: Main models are in Models/ folder
+// This section removed to avoid conflicts with Models/User.swift
 
 // MARK: - Errors
 

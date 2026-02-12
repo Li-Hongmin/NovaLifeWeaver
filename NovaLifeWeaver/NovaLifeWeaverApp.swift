@@ -2,70 +2,45 @@ import SwiftUI
 
 @main
 struct NovaLifeWeaverApp: App {
-    init() {
-        // 启动时运行数据库测试
-        print("🧠 NovaLife Weaver 启动中...")
-        TestDatabase.runTests()
-    }
-    
+    // 使用 AppDelegate 管理应用生命周期
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    // 全局状态管理
+    @StateObject private var appState = AppState.shared
+    @StateObject private var navigationState = NavigationStateManager.shared
+
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        // 主窗口场景
+        WindowGroup("NovaLife Weaver", id: "main") {
+            MainWindowView()
+                .environmentObject(appState)
+                .environmentObject(navigationState)
         }
-    }
-}
+        .commands {
+            // 添加自定义命令
+            CommandGroup(after: .newItem) {
+                Button("显示主窗口") {
+                    navigationState.showMainWindow()
+                }
+                .keyboardShortcut("0", modifiers: [.command])
 
-struct ContentView: View {
-    var body: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "brain.head.profile")
-                .font(.system(size: 80))
-                .foregroundColor(.blue)
-            
-            Text("NovaLife Weaver")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
-            Text("更懂你的感受和生活")
-                .font(.title3)
-                .foregroundColor(.secondary)
-            
-            Divider()
-                .padding()
-            
-            VStack(alignment: .leading, spacing: 10) {
-                StatusRow(icon: "checkmark.circle.fill", text: "数据库已初始化", color: .green)
-                StatusRow(icon: "checkmark.circle.fill", text: "10 个核心表已创建", color: .green)
-                StatusRow(icon: "checkmark.circle.fill", text: "支持全局上下文查询", color: .green)
-                StatusRow(icon: "checkmark.circle.fill", text: "情绪消费分析已就绪", color: .green)
+                Divider()
+
+                // 快速导航命令
+                ForEach(NavigationSection.allCases) { section in
+                    Button(section.displayName) {
+                        navigationState.navigateTo(section: section)
+                    }
+                    .keyboardShortcut(section.keyboardShortcut ?? "1", modifiers: [.command])
+                }
             }
-            .padding()
-            
-            Text("Phase 1 开发中...")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .padding(.top)
         }
-        .padding()
-        .frame(minWidth: 500, minHeight: 400)
-    }
-}
+        .defaultSize(width: 1200, height: 800)
 
-struct StatusRow: View {
-    let icon: String
-    let text: String
-    let color: Color
-    
-    var body: some View {
-        HStack {
-            Image(systemName: icon)
-                .foregroundColor(color)
-            Text(text)
-                .font(.body)
+        // 设置场景
+        Settings {
+            SettingsView()
+                .environmentObject(appState)
         }
     }
-}
-
-#Preview {
-    ContentView()
 }

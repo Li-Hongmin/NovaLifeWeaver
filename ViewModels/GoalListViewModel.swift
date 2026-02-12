@@ -21,16 +21,9 @@ class GoalListViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
-        do {
-            // 从数据库加载目标
-            goals = try await db.fetchActiveGoals(userId: userId)
-
-            print("✅ Loaded \(goals.count) goals")
-        } catch {
-            // 优雅处理错误 - 使用空列表而不是显示错误
-            goals = []
-            print("⚠️ 无法加载目标（可能是首次运行）: \(error)")
-        }
+        // 暂时使用空列表（数据库查询待实现）
+        goals = []
+        print("⚠️ 目标数据加载待实现")
 
         isLoading = false
     }

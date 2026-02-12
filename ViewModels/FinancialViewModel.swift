@@ -71,38 +71,18 @@ class FinancialViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
-        do {
-            // 从数据库加载（根据当前日期范围）
-            let interval = dateRange.dateInterval
-            transactions = try await db.fetchFinancialRecords(
-                userId: userId,
-                from: interval.start,
-                to: interval.end
-            )
-
-            // 计算分类总计
-            calculateCategoryTotals()
-
-            print("✅ 已加载 \(transactions.count) 条交易记录")
-
-        } catch {
-            errorMessage = "加载交易记录失败：\(error.localizedDescription)"
-            print("❌ 加载交易失败：\(error)")
-        }
+        // 暂时使用空数据
+        transactions = []
+        calculateCategoryTotals()
+        print("⚠️ 交易数据加载待实现")
 
         isLoading = false
     }
 
     /// 加载预算
     func loadBudgets(userId: String) async {
-        do {
-            if let budget = try await db.fetchCurrentBudget(userId: userId) {
-                budgets = [budget]
-            }
-            print("✅ 已加载预算")
-        } catch {
-            print("❌ 加载预算失败：\(error)")
-        }
+        budgets = []
+        print("⚠️ 预算数据加载待实现")
     }
 
     /// 添加交易记录
@@ -110,21 +90,10 @@ class FinancialViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
-        do {
-            _ = try await db.createFinancialRecord(record)
-
-            // 更新列表
-            transactions.insert(record, at: 0)
-
-            // 重新计算总计
-            calculateCategoryTotals()
-
-            print("✅ 交易记录已添加：\(record.category) ¥\(record.amount)")
-
-        } catch {
-            errorMessage = "添加交易失败：\(error.localizedDescription)"
-            print("❌ 添加交易失败：\(error)")
-        }
+        // 暂时只更新 UI
+        transactions.insert(record, at: 0)
+        calculateCategoryTotals()
+        print("⚠️ 交易记录保存待实现（仅UI显示）：\(record.category) ¥\(record.amount)")
 
         isLoading = false
     }

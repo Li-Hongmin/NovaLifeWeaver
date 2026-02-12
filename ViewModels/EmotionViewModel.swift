@@ -14,23 +14,16 @@ class EmotionViewModel: ObservableObject {
     /// 加载情绪记录
     func loadEmotions(userId: String, days: Int = 30) async {
         isLoading = true
-        do {
-            emotions = try await db.fetchRecentEmotions(userId: userId, days: days)
-            print("✅ 已加载 \(emotions.count) 条情绪记录")
-        } catch {
-            errorMessage = "加载失败：\(error.localizedDescription)"
-        }
+        // 暂时使用空数据
+        emotions = []
+        print("⚠️ 情绪数据加载待实现")
         isLoading = false
     }
 
     /// 添加情绪记录
     func addEmotion(_ record: EmotionRecord) async {
-        do {
-            _ = try await db.createEmotionRecord(record)
-            emotions.insert(record, at: 0)
-            print("✅ 情绪记录已添加")
-        } catch {
-            errorMessage = "添加失败：\(error.localizedDescription)"
-        }
+        // 暂时只更新UI
+        emotions.insert(record, at: 0)
+        print("⚠️ 情绪记录保存待实现（仅UI显示）")
     }
 }

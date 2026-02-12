@@ -42,12 +42,9 @@ class InsightsViewModel: ObservableObject {
 
     /// 加载已保存的关联和洞察
     func loadData(userId: String) async {
-        do {
-            correlations = try await db.fetchCorrelations(userId: userId)
-            insights = try await db.fetchInsights(userId: userId, limit: 30)
-            print("✅ 加载了 \(correlations.count) 个关联和 \(insights.count) 条洞察")
-        } catch {
-            print("⚠️ 加载数据失败：\(error)")
-        }
+        // 暂时使用空数据（数据库方法待实现）
+        correlations = []
+        insights = []
+        print("⚠️ 关联和洞察数据加载待实现")
     }
 }
