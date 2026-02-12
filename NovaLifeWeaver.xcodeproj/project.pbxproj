@@ -8,14 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		063350103A91B4043B346F17 /* EmotionRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1D24AF596561EA100156C /* EmotionRecorderView.swift */; };
-		078FD5C2A40BD27877399BB2 /* EmotionRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B2C0A3546EF4A9EB814B0 /* EmotionRecorderView.swift */; };
 		12E37C2CC9A9C92A2D517294 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E82BEE90B4415025C49D89 /* AppDelegate.swift */; };
 		181965D6C05C4E468107E259 /* VoiceRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E361E528A3E522FF0D867ED /* VoiceRecorderView.swift */; };
 		215305FA03B69988287F1376 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461206C80B9F1532F80FD7DD /* TransactionListView.swift */; };
 		25E0B798CABAA8B1F2A0AE5C /* EmotionTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6B833600A02626F72A425C /* EmotionTimelineView.swift */; };
-		436074B2C90CF5197D703B2E /* EmotionTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B96B7499DA1B94EF2684E /* EmotionTimelineView.swift */; };
 		4F1ABC11CB580BAC09C2C444 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE367D8065BABD39CDF915BA /* SidebarView.swift */; };
-		52202F286E85ABB6C60F02EC /* EmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D440F8396B19F25E0C6E2701 /* EmotionViewModel.swift */; };
 		54F5A39F2063ACEC98984AD3 /* UIProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE20475A1949E837F173ED /* UIProtocols.swift */; };
 		5BE9200F4A34795A9CBACBC4 /* InsightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23D46DBE31C67B536E0E7AB /* InsightsViewModel.swift */; };
 		8301CE1F2F3D4F3B0067EDDC /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 8301CE1E2F3D4F3B0067EDDC /* SQLite */; };
@@ -454,9 +451,6 @@
 				F5B45126105A7A88810FB8EE /* MemoryAgent.swift in Sources */,
 				181965D6C05C4E468107E259 /* VoiceRecorderView.swift in Sources */,
 				FC9BB20B8592829EA906902F /* ImagePickerView.swift in Sources */,
-				52202F286E85ABB6C60F02EC /* EmotionViewModel.swift in Sources */,
-				078FD5C2A40BD27877399BB2 /* EmotionRecorderView.swift in Sources */,
-				436074B2C90CF5197D703B2E /* EmotionTimelineView.swift in Sources */,
 				5BE9200F4A34795A9CBACBC4 /* InsightsViewModel.swift in Sources */,
 				D84BEA4E09266D5700D901AE /* CorrelationChartView.swift in Sources */,
 			);
