@@ -17,6 +17,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menuBarManager = MenuBarManager()
         menuBarManager?.setupMenuBar()
 
+        // 注册主窗口显示通知
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showMainWindow),
+            name: .showMainWindow,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(hideMainWindow),
+            name: .hideMainWindow,
+            object: nil
+        )
+
         print("✅ Menu Bar 已初始化")
     }
 
@@ -25,10 +40,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        // 当应用被重新激活时，显示 Menu Bar popover
+        // 当应用被重新激活时
         if !flag {
-            menuBarManager?.togglePopover()
+            // 没有可见窗口 → 显示主窗口
+            showMainWindow()
+        } else {
+            // 有窗口 → 激活主窗口
+            NSApp.windows.first?.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
         }
         return true
+    }
+
+    // MARK: - Window Management
+
+    /// 显示主窗口
+    @objc func showMainWindow() {
+        // 查找主窗口
+        if let mainWindow = NSApp.windows.first(where: { $0.title == "NovaLife Weaver" }) {
+            mainWindow.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
+            print("🪟 主窗口已激活")
+        } else {
+            // 如果没有主窗口，创建新的
+            NSApp.sendAction(Selector(("newDocument:")), to: nil, from: nil)
+            print("🪟 创建新主窗口")
+        }
+    }
+
+    /// 隐藏主窗口
+    @objc func hideMainWindow() {
+        NSApp.windows.first(where: { $0.title == "NovaLife Weaver" })?.orderOut(nil)
+        print("🪟 主窗口已隐藏")
     }
 }

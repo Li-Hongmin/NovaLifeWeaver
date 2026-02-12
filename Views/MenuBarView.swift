@@ -3,6 +3,7 @@ import SwiftUI
 /// Menu Bar 主界面 - 应用主入口
 struct MenuBarView: View {
     @StateObject private var viewModel = MenuBarViewModel()
+    @EnvironmentObject var navigationState: NavigationStateManager
     @State private var isLoading = false
     @State private var showingSettings = false
 
@@ -12,6 +13,24 @@ struct MenuBarView: View {
             HeaderView(context: viewModel.userContext)
                 .padding(.horizontal, 16)
                 .padding(.top, 12)
+
+            // 打开主窗口按钮
+            Button {
+                navigationState.showMainWindow()
+            } label: {
+                HStack {
+                    Image(systemName: "macwindow")
+                    Text("打开主窗口")
+                    Spacer()
+                    Text("⌘0")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.vertical, 8)
+            }
+            .buttonStyle(.bordered)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
 
             Divider()
                 .padding(.vertical, 8)
