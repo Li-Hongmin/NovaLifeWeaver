@@ -79,12 +79,11 @@ class AppState: ObservableObject {
     /// 刷新上下文（手动或自动触发）
     func refreshContext() async {
         guard let userId = currentUser?.id else {
-            handleError(AppStateError.noUser, context: "刷新上下文失败")
+            print("⚠️ 无当前用户，跳过上下文刷新")
             return
         }
 
         isLoading = true
-        errorMessage = nil
 
         do {
             // 使用 ContextEngine 加载完整上下文
@@ -98,8 +97,14 @@ class AppState: ObservableObject {
 
             print("✅ AppState: 上下文刷新成功 - \(context?.summary.totalGoals ?? 0) 个目标")
 
+            // 清除之前的错误
+            errorMessage = nil
+
         } catch {
-            handleError(error, context: "刷新上下文失败")
+            // 不显示错误弹窗，只记录日志
+            print("⚠️ AppState: 上下文刷新失败 - \(error)")
+            // 使用空上下文而不是报错
+            context = nil
         }
 
         isLoading = false
