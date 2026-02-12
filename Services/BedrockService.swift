@@ -9,13 +9,11 @@ class BedrockService {
         "https://bedrock-runtime.\(region).amazonaws.com"
     }
 
-    // Nova 模型 IDs
+    // Nova 模型 IDs（使用 inference profile）
     enum NovaModel: String {
-        case lite = "amazon.nova-2-lite-v1:0"
-        case pro = "amazon.nova-pro-v1:0"
-        case premier = "amazon.nova-premier-v1:0"
-        case micro = "amazon.nova-micro-v1:0"
-        case sonic = "amazon.nova-sonic-v1:0"
+        case lite = "us.amazon.nova-lite-v1:0"
+        case pro = "us.amazon.nova-pro-v1:0"
+        case micro = "us.amazon.nova-micro-v1:0"
     }
 
     private init() {}
