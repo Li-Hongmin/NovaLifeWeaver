@@ -11,75 +11,133 @@ class ConversationService {
 
     // MARK: - 主要接口
 
-    /// 处理用户输入（真正的 AI Tool Use 流程）
+    /// 处理用户输入（使用 Prompt Engineering 实现 Tool Use）
     func processInput(_ input: String, userId: String, context: UserContext?) async -> ConversationResult {
         print("💬 处理对话：\(input)")
 
         do {
-            // 1. 构建消息
-            let messages: [[String: Any]] = [
-                [
-                    "role": "user",
-                    "content": [
-                        ["text": input]
-                    ]
-                ]
-            ]
+            // 1. 构建 Tool Use Prompt
+            let toolPrompt = buildToolUsePrompt(userInput: input)
 
-            // 2. 获取工具定义
-            let tools = toolService.getToolDefinitions()
+            print("🤖 调用 Nova AI...")
 
-            print("🤖 调用 Nova AI（带 \(tools.count) 个工具）...")
-
-            // 3. 调用 Nova with Tool Use
-            let response = try await bedrockService.invokeWithTools(
-                messages: messages,
-                tools: tools,
+            // 2. 调用 Nova AI
+            let response = try await bedrockService.invokeNova(
+                prompt: toolPrompt,
                 model: .lite,
-                maxTokens: 2048,
-                temperature: 0.7
+                maxTokens: 1024,
+                temperature: 0.3
             )
 
-            // 4. 处理响应
-            if let toolUse = response.toolUse {
+            print("✅ Nova 响应：\(response.prefix(200))...")
+
+            // 3. 解析 AI 响应（JSON 格式）
+            if let toolCall = parseToolCall(from: response) {
                 // AI 决定调用工具
-                print("🔧 AI 调用工具：\(toolUse.name)")
-                print("📋 参数：\(toolUse.input)")
+                print("🔧 AI 决定调用：\(toolCall.name)")
+                print("📋 参数：\(toolCall.parameters)")
 
                 let toolResult = try await toolService.executeTool(
-                    name: toolUse.name,
-                    parameters: toolUse.input,
+                    name: toolCall.name,
+                    parameters: toolCall.parameters,
                     userId: userId
                 )
 
+                // 4. 让 AI 生成友好的回复
+                let finalResponse = try await generateFriendlyResponse(
+                    toolName: toolCall.name,
+                    toolResult: toolResult
+                )
+
                 return ConversationResult(
-                    message: toolResult.message,
-                    toolUsed: toolUse.name,
+                    message: finalResponse,
+                    toolUsed: toolCall.name,
                     success: toolResult.success,
                     data: toolResult.data
                 )
-            } else if let text = response.text {
+            } else {
                 // AI 直接回复（不需要工具）
-                print("💬 AI 直接回复")
                 return ConversationResult(
-                    message: text,
+                    message: response,
                     toolUsed: nil,
                     success: true,
                     data: nil
                 )
-            } else {
-                throw ConversationError.noResponse
             }
 
         } catch {
             print("❌ AI 处理失败：\(error)")
             return ConversationResult(
-                message: "抱歉，我遇到了一些问题：\(error.localizedDescription)",
+                message: "抱歉，我遇到了一些问题。请稍后再试。",
                 toolUsed: nil,
                 success: false,
                 data: nil
             )
         }
+    }
+
+    // MARK: - Prompt Engineering
+
+    private func buildToolUsePrompt(userInput: String) -> String {
+        return """
+        你是 NovaLife，一个智能生活助手。用户说："\(userInput)"
+
+        分析用户意图，如果需要执行操作，返回 JSON 格式的工具调用：
+
+        可用工具：
+        1. create_goal - 创建目标
+           参数：{\"tool\": \"create_goal\", \"title\": \"目标标题\", \"category\": \"learning/health/finance\", \"deadline\": \"2026-03-31\", \"priority\": 5}
+
+        2. create_habit - 创建习惯
+           参数：{\"tool\": \"create_habit\", \"name\": \"习惯名称\", \"category\": \"health/learning\", \"frequency\": \"daily\"}
+
+        3. record_expense - 记录支出
+           参数：{\"tool\": \"record_expense\", \"amount\": 800, \"category\": \"food\", \"title\": \"描述\"}
+
+        4. record_emotion - 记录情绪
+           参数：{\"tool\": \"record_emotion\", \"score\": -0.5, \"trigger\": \"工作压力\"}
+
+        如果需要调用工具，**只返回 JSON**（一行）：
+        {\"tool\": \"工具名\", \"参数名\": \"参数值\", ...}
+
+        如果不需要工具，直接用自然语言回复。
+        """
+    }
+
+    private func parseToolCall(from response: String) -> (name: String, parameters: [String: Any])? {
+        // 尝试提取 JSON
+        guard let jsonStart = response.firstIndex(of: "{"),
+              let jsonEnd = response.lastIndex(of: "}") else {
+            return nil
+        }
+
+        let jsonString = String(response[jsonStart...jsonEnd])
+
+        guard let data = jsonString.data(using: .utf8),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let toolName = json["tool"] as? String else {
+            return nil
+        }
+
+        var parameters = json
+        parameters.removeValue(forKey: "tool")
+
+        return (toolName, parameters)
+    }
+
+    private func generateFriendlyResponse(toolName: String, toolResult: ToolResult) async throws -> String {
+        let prompt = """
+        用户执行了 \(toolName) 操作，结果是：\(toolResult.message)
+
+        请用友好自然的语气告诉用户操作已完成。不要超过50字。
+        """
+
+        return try await bedrockService.invokeNova(
+            prompt: prompt,
+            model: .lite,
+            maxTokens: 100,
+            temperature: 0.7
+        )
     }
 
     // MARK: - 意图检测
