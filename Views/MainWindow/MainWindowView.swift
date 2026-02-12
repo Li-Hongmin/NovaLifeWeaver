@@ -1,14 +1,17 @@
 import SwiftUI
 
-/// 主窗口视图 - 应用主界面（侧边栏 + 内容区域）
+/// 主窗口视图 - 应用主界面（侧边栏 + 内容区域 + 固定对话栏）
 struct MainWindowView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var navigationState: NavigationStateManager
+    @StateObject private var conversationViewModel = MenuBarViewModel()
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
+        VStack(spacing: 0) {
+            // 主内容区域（侧边栏 + 详情）
+            NavigationSplitView(columnVisibility: $columnVisibility) {
             // 侧边栏
             SidebarView()
                 .toolbar {
@@ -36,8 +39,14 @@ struct MainWindowView: View {
                         contextStatusView
                     }
                 }
+            }
+            .navigationSplitViewStyle(.balanced)
+
+            Divider()
+
+            // 底部固定对话栏
+            FixedConversationBar(viewModel: conversationViewModel)
         }
-        .navigationSplitViewStyle(.balanced)
         .frame(minWidth: 900, minHeight: 600)
         .task {
             // 窗口打开时加载用户状态（如果未加载）
@@ -109,6 +118,89 @@ struct MainWindowView: View {
             } else {
                 columnVisibility = .all
             }
+        }
+    }
+}
+
+// MARK: - Fixed Conversation Bar
+
+/// 固定对话栏 - 在主窗口底部始终可见
+struct FixedConversationBar: View {
+    @ObservedObject var viewModel: MenuBarViewModel
+    @State private var userInput: String = ""
+    @State private var isProcessing: Bool = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // 对话输入区域
+            HStack(spacing: 12) {
+                // AI 图标
+                Image(systemName: "brain.head.profile")
+                    .font(.title2)
+                    .foregroundColor(.accentColor)
+
+                // 输入框
+                TextField("与 NovaLife AI 对话... (例如：我想在3月考过 JLPT N2)", text: $userInput)
+                    .textFieldStyle(.plain)
+                    .font(.body)
+                    .disabled(isProcessing)
+                    .onSubmit {
+                        handleSubmit()
+                    }
+
+                // 语音按钮（暂时禁用）
+                Button {
+                    // TODO: 打开语音录制
+                } label: {
+                    Image(systemName: "mic.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.secondary)
+                }
+                .buttonStyle(.plain)
+                .disabled(true)
+                .help("语音输入（即将推出）")
+
+                // 图片按钮（暂时禁用）
+                Button {
+                    // TODO: 打开图片选择
+                } label: {
+                    Image(systemName: "photo.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.secondary)
+                }
+                .buttonStyle(.plain)
+                .disabled(true)
+                .help("图片输入（即将推出）")
+
+                // 发送按钮
+                Button {
+                    handleSubmit()
+                } label: {
+                    Image(systemName: isProcessing ? "arrow.circlepath" : "paperplane.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(userInput.isEmpty ? .secondary : .accentColor)
+                }
+                .buttonStyle(.plain)
+                .disabled(userInput.isEmpty || isProcessing)
+                .help("发送")
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .background(Color(NSColor.controlBackgroundColor))
+        }
+        .frame(height: 60)
+    }
+
+    private func handleSubmit() {
+        guard !userInput.isEmpty else { return }
+
+        let input = userInput
+        userInput = ""
+        isProcessing = true
+
+        Task {
+            await viewModel.handleUserInput(input)
+            isProcessing = false
         }
     }
 }
