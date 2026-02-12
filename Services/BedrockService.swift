@@ -120,24 +120,24 @@ class BedrockService {
         body: String
     ) async throws -> String {
 
-        // 转义 JSON 字符串
-        let escapedBody = body
-            .replacingOccurrences(of: "\\", with: "\\\\")
-            .replacingOccurrences(of: "\"", with: "\\\"")
-            .replacingOccurrences(of: "\n", with: "\\n")
+        // 1. 写入临时文件
+        let bodyPath = "/tmp/bedrock_input.json"
+        let outputPath = "/tmp/bedrock_output.json"
 
+        try body.write(toFile: bodyPath, atomically: true, encoding: .utf8)
+
+        // 2. 执行 AWS CLI（使用文件输入）
         let command = """
         aws bedrock-runtime invoke-model \
-            --model-id "\(modelId)" \
+            --model-id \(modelId) \
             --region \(region) \
-            --body "\(escapedBody)" \
-            /tmp/bedrock_response.json \
-        && cat /tmp/bedrock_response.json
+            --body file://\(bodyPath) \
+            \(outputPath) 2>&1
         """
 
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = ["bash", "-c", command]
+        process.executableURL = URL(fileURLWithPath: "/bin/bash")
+        process.arguments = ["-c", command]
 
         let pipe = Pipe()
         process.standardOutput = pipe
@@ -146,14 +146,21 @@ class BedrockService {
         try process.run()
         process.waitUntilExit()
 
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8) ?? ""
+        let statusOutput = String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
 
         guard process.terminationStatus == 0 else {
-            throw BedrockError.apiCallFailed(output)
+            print("❌ AWS CLI 错误：\(statusOutput)")
+            throw BedrockError.apiCallFailed(statusOutput)
         }
 
-        return output
+        // 3. 读取响应
+        guard let responseData = try? Data(contentsOf: URL(fileURLWithPath: outputPath)),
+              let response = String(data: responseData, encoding: .utf8) else {
+            throw BedrockError.invalidResponse
+        }
+
+        print("✅ AWS API 调用成功")
+        return response
     }
 
     /// 解析文本响应

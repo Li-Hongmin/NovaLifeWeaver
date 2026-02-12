@@ -13,6 +13,7 @@ class MenuBarViewModel: ObservableObject {
     @Published var lastResponse: String?
 
     private let contextEngine = ContextEngine.shared
+    private let conversationService = ConversationService.shared
     private let userId = "default_user" // TODO: 从用户登录获取
 
     // MARK: - Initialization
@@ -51,18 +52,30 @@ class MenuBarViewModel: ObservableObject {
         }
     }
 
-    /// 处理用户输入
+    /// 处理用户输入（AI-First with Tool Use）
     func handleUserInput(_ input: String) async {
         print("📝 User input: \(input)")
 
         isLoading = true
         lastResponse = nil
 
-        // 简单的关键词响应（暂时不使用 IntentRouter 避免复杂性）
-        let response = generateQuickResponse(for: input)
-        lastResponse = response
+        // 使用 ConversationService 处理（支持 Tool Use）
+        let result = await conversationService.processInput(
+            input,
+            userId: userId,
+            context: userContext
+        )
 
-        print("✅ 响应：\(response)")
+        lastResponse = result.message
+
+        if result.success {
+            print("✅ 工具调用成功：\(result.toolUsed ?? "none")")
+
+            // 刷新上下文（因为数据可能已更新）
+            await loadInitialContext()
+        } else {
+            print("⚠️ 处理失败")
+        }
 
         isLoading = false
     }
