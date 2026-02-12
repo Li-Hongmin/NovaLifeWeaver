@@ -64,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		03D5D810BE22DF08D930E2E6 /* ImagePickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePickerView.swift; path = Components/ImagePickerView.swift; sourceTree = "<group>"; };
+		14EB4834D0F6058647BAAEF1 /* IntentRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntentRouter.swift; sourceTree = "<group>"; };
 		17E82BEE90B4415025C49D89 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = App/AppDelegate.swift; sourceTree = "<group>"; };
 		1D70A6CA782277021BB95EBA /* NavigationStateManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NavigationStateManager.swift; sourceTree = "<group>"; };
 		1FE1D24AF596561EA100156C /* EmotionRecorderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EmotionRecorderView.swift; path = Emotion/EmotionRecorderView.swift; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 				8301CEB72F3D610C0067EDDC /* BedrockService.swift */,
 				8301CEB82F3D610C0067EDDC /* DatabaseService.swift */,
 				8301CEB92F3D610C0067EDDC /* EventKitService.swift */,
+				14EB4834D0F6058647BAAEF1 /* IntentRouter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

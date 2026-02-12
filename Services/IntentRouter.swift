@@ -533,20 +533,7 @@ class IntentRouter: IntentRouterProtocol {
 
 // MARK: - 建议行动类型
 
-/// 建议行动
-struct SuggestedAction {
-    enum ActionType {
-        case addSubtask
-        case addEvent
-        case createHabit
-        case recordEmotion
-        case recordExpense
-    }
-
-    let type: ActionType
-    let title: String
-    let data: [String: Any]
-}
+// SuggestedAction is defined in Models/Insight.swift
 
 // MARK: - 错误类型
 

@@ -132,6 +132,33 @@ struct FixedConversationBar: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            // AI 响应显示（如果有）
+            if let response = viewModel.lastResponse {
+                HStack(alignment: .top, spacing: 12) {
+                    Image(systemName: "brain")
+                        .font(.title3)
+                        .foregroundColor(.accentColor)
+
+                    Text(response)
+                        .font(.callout)
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Button {
+                        viewModel.lastResponse = nil
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding()
+                .background(Color.accentColor.opacity(0.1))
+                .cornerRadius(8)
+                .padding(.horizontal, 20)
+                .padding(.top, 8)
+            }
+
             // 对话输入区域
             HStack(spacing: 12) {
                 // AI 图标
