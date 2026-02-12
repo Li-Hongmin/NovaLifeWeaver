@@ -598,8 +598,7 @@ final class InsightEngine: InsightEngineProtocol {
 
     /// 生成情绪支出洞察
     private func generateEmotionSpendingInsight(context: UserContext) -> Insight? {
-        // 计算最近 7 天的情绪和支出
-        let recentDays = 7
+        // 计算最近的情绪和支出（需要至少3条记录）
         guard context.recentEmotions.count >= 3 && context.recentFinancials.count >= 3 else {
             return nil
         }

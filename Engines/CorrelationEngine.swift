@@ -62,7 +62,7 @@ class CorrelationEngine: CorrelationEngineProtocol {
     /// 验证已有关联是否仍然有效
     func verifyCorrelation(_ correlation: Correlation) async throws -> Bool {
         guard let coefficient = correlation.correlationCoefficient else { return false }
-        guard let significance = correlation.significance else { return false }
+        guard correlation.significance != nil else { return false }
 
         // 重新计算关联
         if let newCorrelation = try await analyzeCorrelation(
