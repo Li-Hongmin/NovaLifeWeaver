@@ -646,7 +646,7 @@ extension DatabaseService: DatabaseProtocol {
         // Join habits and completions to filter by userId
         let query = habitCompletions
             .join(habits, on: habits[id] == habitCompletions[Expression<String>("habit_id")])
-            .filter(habits[userId] == userId)
+            .filter(habits[self.userId] == userId)
             .filter(habitCompletions[Expression<Int64>("completed_at")] >= Int64(startOfDay.timeIntervalSince1970))
             .filter(habitCompletions[Expression<Int64>("completed_at")] < Int64(endOfDay.timeIntervalSince1970))
 

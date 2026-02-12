@@ -5,7 +5,9 @@ struct NovaLifeWeaverApp: App {
     init() {
         // 启动时运行数据库测试
         print("🧠 NovaLife Weaver 启动中...")
-        TestDatabase.runTests()
+        Task {
+            await TestDatabase.runTests()
+        }
     }
     
     var body: some Scene {

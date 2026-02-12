@@ -8,7 +8,7 @@ class TestCorrelationEngine {
     /// 测试：分析所有关联
     func testAnalyzeAllCorrelations() async {
         print("\n📊 Testing Correlation Engine - Analyze All Correlations")
-        print("=" * 60)
+        print(String(repeating: "=", count: 60))
 
         let testUserId = "test-user-123"
 
@@ -18,7 +18,7 @@ class TestCorrelationEngine {
             print("\n✅ Found \(correlations.count) correlations:")
 
             for correlation in correlations {
-                print("\n" + "-" * 50)
+                print("\n" + String(repeating: "-", count: 50))
                 print("📍 Correlation: \(correlation.dimensionA) ↔ \(correlation.dimensionB)")
 
                 if let coefficient = correlation.correlationCoefficient {
@@ -44,7 +44,7 @@ class TestCorrelationEngine {
                 }
             }
 
-            print("\n" + "=" * 60)
+            print("\n" + String(repeating: "=", count: 60))
 
         } catch {
             print("❌ Error: \(error)")
@@ -54,7 +54,7 @@ class TestCorrelationEngine {
     /// 测试：分析特定维度关联
     func testSpecificCorrelation() async {
         print("\n📊 Testing Specific Correlation - Emotion vs Spending")
-        print("=" * 60)
+        print(String(repeating: "=", count: 60))
 
         let testUserId = "test-user-123"
 
@@ -90,7 +90,7 @@ class TestCorrelationEngine {
     /// 测试：验证已有关联
     func testVerifyCorrelation() async {
         print("\n📊 Testing Correlation Verification")
-        print("=" * 60)
+        print(String(repeating: "=", count: 60))
 
         // 创建一个测试关联
         let testCorrelation = Correlation(
@@ -119,7 +119,7 @@ class TestCorrelationEngine {
     /// 演示：关联分析的实际应用场景
     func demonstrateRealWorldUsage() {
         print("\n🌟 Real-World Usage Scenarios")
-        print("=" * 60)
+        print(String(repeating: "=", count: 60))
 
         print("""
 
@@ -150,7 +150,7 @@ class TestCorrelationEngine {
 
         """)
 
-        print("=" * 60)
+        print(String(repeating: "=", count: 60))
     }
 
     /// 运行所有测试
