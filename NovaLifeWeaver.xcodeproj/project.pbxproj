@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		063350103A91B4043B346F17 /* EmotionRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1D24AF596561EA100156C /* EmotionRecorderView.swift */; };
 		12E37C2CC9A9C92A2D517294 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E82BEE90B4415025C49D89 /* AppDelegate.swift */; };
 		215305FA03B69988287F1376 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461206C80B9F1532F80FD7DD /* TransactionListView.swift */; };
+		25E0B798CABAA8B1F2A0AE5C /* EmotionTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6B833600A02626F72A425C /* EmotionTimelineView.swift */; };
 		4F1ABC11CB580BAC09C2C444 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE367D8065BABD39CDF915BA /* SidebarView.swift */; };
 		54F5A39F2063ACEC98984AD3 /* UIProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE20475A1949E837F173ED /* UIProtocols.swift */; };
 		8301CE1F2F3D4F3B0067EDDC /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 8301CE1E2F3D4F3B0067EDDC /* SQLite */; };
@@ -46,6 +48,7 @@
 		8301CEEA2F3D610C0067EDDC /* EmotionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301CEAA2F3D610C0067EDDC /* EmotionRecord.swift */; };
 		87DE7F53A7576418751A900A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6EA8F586FFAB9F454CF3AE /* AppState.swift */; };
 		952FA803F647070C92507364 /* FinancialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA9BE786C25140B7364819 /* FinancialViewModel.swift */; };
+		9EE93CC0E024A75683BA997C /* EmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1BEE1521D7930DD5276A4B /* EmotionViewModel.swift */; };
 		A6C52BAF3C8B975439D0C009 /* DetailContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90480DB74420FB0D814133FE /* DetailContainerView.swift */; };
 		CD0DF256C65DCB5C3FB4B2F9 /* TransactionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF89B5D233528C490FE6A30 /* TransactionFormView.swift */; };
 		D0113F3B012366545C9A0CE2 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D632724F563AF77C9B02E781 /* MenuBarManager.swift */; };
@@ -57,9 +60,11 @@
 /* Begin PBXFileReference section */
 		17E82BEE90B4415025C49D89 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = App/AppDelegate.swift; sourceTree = "<group>"; };
 		1D70A6CA782277021BB95EBA /* NavigationStateManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NavigationStateManager.swift; sourceTree = "<group>"; };
+		1FE1D24AF596561EA100156C /* EmotionRecorderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EmotionRecorderView.swift; path = Emotion/EmotionRecorderView.swift; sourceTree = "<group>"; };
 		2CF89B5D233528C490FE6A30 /* TransactionFormView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransactionFormView.swift; path = Financial/TransactionFormView.swift; sourceTree = "<group>"; };
 		3DCE20475A1949E837F173ED /* UIProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIProtocols.swift; sourceTree = "<group>"; };
 		461206C80B9F1532F80FD7DD /* TransactionListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransactionListView.swift; path = Financial/TransactionListView.swift; sourceTree = "<group>"; };
+		7B6B833600A02626F72A425C /* EmotionTimelineView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EmotionTimelineView.swift; path = Emotion/EmotionTimelineView.swift; sourceTree = "<group>"; };
 		81BA9BE786C25140B7364819 /* FinancialViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FinancialViewModel.swift; sourceTree = "<group>"; };
 		8301CE0F2F3D4DC80067EDDC /* NovaLifeWeaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NovaLifeWeaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8301CEA32F3D610C0067EDDC /* PlannerAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerAgent.swift; sourceTree = "<group>"; };
@@ -98,6 +103,7 @@
 		90480DB74420FB0D814133FE /* DetailContainerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DetailContainerView.swift; path = MainWindow/DetailContainerView.swift; sourceTree = "<group>"; };
 		917A56C58406C70C44E70D16 /* MainWindowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MainWindowView.swift; path = MainWindow/MainWindowView.swift; sourceTree = "<group>"; };
 		AE367D8065BABD39CDF915BA /* SidebarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SidebarView.swift; path = MainWindow/SidebarView.swift; sourceTree = "<group>"; };
+		AF1BEE1521D7930DD5276A4B /* EmotionViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EmotionViewModel.swift; sourceTree = "<group>"; };
 		C54111742DA864C18B84A77E /* EmotionPickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EmotionPickerView.swift; path = Components/EmotionPickerView.swift; sourceTree = "<group>"; };
 		D632724F563AF77C9B02E781 /* MenuBarManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MenuBarManager.swift; path = App/MenuBarManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F27E52CD7F02DB42A775525 /* Emotion */ = {
+			isa = PBXGroup;
+			children = (
+				1FE1D24AF596561EA100156C /* EmotionRecorderView.swift */,
+				7B6B833600A02626F72A425C /* EmotionTimelineView.swift */,
+			);
+			name = Emotion;
+			sourceTree = "<group>";
+		};
 		79A3ACECF8B20695B78A9AF2 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +246,7 @@
 				8301CEC22F3D610C0067EDDC /* MenuBarViewModel.swift */,
 				1D70A6CA782277021BB95EBA /* NavigationStateManager.swift */,
 				81BA9BE786C25140B7364819 /* FinancialViewModel.swift */,
+				AF1BEE1521D7930DD5276A4B /* EmotionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -246,6 +262,7 @@
 				8301CEC92F3D610C0067EDDC /* SettingsView.swift */,
 				A8D9DAAEC20A8B8272641ED0 /* MainWindow */,
 				C8CAEA8451C260FEE2DE7E5F /* Financial */,
+				1F27E52CD7F02DB42A775525 /* Emotion */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -399,6 +416,9 @@
 				952FA803F647070C92507364 /* FinancialViewModel.swift in Sources */,
 				CD0DF256C65DCB5C3FB4B2F9 /* TransactionFormView.swift in Sources */,
 				215305FA03B69988287F1376 /* TransactionListView.swift in Sources */,
+				9EE93CC0E024A75683BA997C /* EmotionViewModel.swift in Sources */,
+				063350103A91B4043B346F17 /* EmotionRecorderView.swift in Sources */,
+				25E0B798CABAA8B1F2A0AE5C /* EmotionTimelineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

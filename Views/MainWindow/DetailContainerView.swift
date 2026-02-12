@@ -49,28 +49,43 @@ struct FinancialDashboardView: View {
     }
 }
 
-/// 情绪记录视图（占位符）
+/// 情绪记录视图
 struct EmotionDashboardView: View {
+    @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel = EmotionViewModel()
+    @State private var showingRecorder = false
+
     var body: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "heart.circle.fill")
-                .font(.system(size: 64))
-                .foregroundColor(.pink)
+        VStack(spacing: 0) {
+            // 时间线
+            EmotionTimelineView(viewModel: viewModel)
 
-            Text("情绪记录")
-                .font(.title)
+            Divider()
 
-            Text("Day 2 下午实现")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+            // 底部按钮
+            HStack {
+                Spacer()
 
-            Text("功能：情绪打卡、语音日记、趋势分析")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+                Button {
+                    showingRecorder = true
+                } label: {
+                    Label("记录情绪", systemImage: "plus.circle.fill")
+                }
+                .buttonStyle(.borderedProminent)
                 .padding()
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .sheet(isPresented: $showingRecorder) {
+            EmotionRecorderView(
+                viewModel: viewModel,
+                userId: appState.currentUser?.id ?? "default-user"
+            )
+        }
+        .task {
+            await viewModel.loadEmotions(
+                userId: appState.currentUser?.id ?? "default-user"
+            )
+        }
     }
 }
 
