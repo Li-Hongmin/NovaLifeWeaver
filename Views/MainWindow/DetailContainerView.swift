@@ -114,28 +114,63 @@ struct CalendarDashboardView: View {
     }
 }
 
-/// 洞察仪表盘视图（占位符）
+/// 洞察仪表盘视图
 struct InsightDashboardView: View {
+    @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel = InsightsViewModel()
+
     var body: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "lightbulb.circle.fill")
-                .font(.system(size: 64))
-                .foregroundColor(.yellow)
+        ScrollView {
+            VStack(spacing: 20) {
+                // 分析按钮
+                Button {
+                    Task {
+                        await viewModel.analyzeCorrelations(userId: appState.currentUser?.id ?? "default-user")
+                        if let context = appState.context {
+                            await viewModel.generateInsights(context: context)
+                        }
+                    }
+                } label: {
+                    Label("分析关联模式", systemImage: "chart.bar.xaxis")
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(viewModel.isAnalyzing)
 
-            Text("智能洞察")
-                .font(.title)
+                // 关联列表
+                if !viewModel.correlations.isEmpty {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("发现的关联")
+                            .font(.title2.bold())
 
-            Text("Day 3 下午实现")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+                        ForEach(viewModel.correlations) { correlation in
+                            CorrelationChartView(correlation: correlation)
+                        }
+                    }
+                }
 
-            Text("功能：关联分析、模式发现、AI 建议")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding()
+                // 空状态
+                if viewModel.correlations.isEmpty && !viewModel.isAnalyzing {
+                    VStack(spacing: 16) {
+                        Image(systemName: "lightbulb.circle")
+                            .font(.system(size: 64))
+                            .foregroundColor(.secondary)
+
+                        Text("还没有分析数据")
+                            .font(.title3)
+
+                        Text("添加更多财务和情绪记录后，点击上方按钮开始分析")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(40)
+                }
+            }
+            .padding()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task {
+            await viewModel.loadData(userId: appState.currentUser?.id ?? "default-user")
+        }
     }
 }
 

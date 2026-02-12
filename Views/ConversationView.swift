@@ -120,55 +120,8 @@ struct ConversationView: View {
     }
 }
 
-// MARK: - Voice Recorder View (Placeholder)
-
-struct VoiceRecorderView: View {
-    @Environment(\.dismiss) var dismiss
-    let onComplete: (Data) -> Void
-
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("语音录制")
-                .font(.headline)
-
-            // TODO: 实现语音录制功能
-            Image(systemName: "waveform.circle.fill")
-                .font(.system(size: 80))
-                .foregroundColor(.red)
-
-            Button("取消") {
-                dismiss()
-            }
-        }
-        .padding()
-        .frame(width: 300, height: 200)
-    }
-}
-
-// MARK: - Image Picker View (Placeholder)
-
-struct ImagePickerView: View {
-    @Environment(\.dismiss) var dismiss
-    let onComplete: (Data) -> Void
-
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("选择图片")
-                .font(.headline)
-
-            // TODO: 实现图片选择功能
-            Image(systemName: "photo.circle.fill")
-                .font(.system(size: 80))
-                .foregroundColor(.blue)
-
-            Button("取消") {
-                dismiss()
-            }
-        }
-        .padding()
-        .frame(width: 300, height: 200)
-    }
-}
+// MARK: - Multimodal Components
+// VoiceRecorderView and ImagePickerView are now in Components/ folder
 
 // MARK: - Preview
 
