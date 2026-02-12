@@ -120,9 +120,10 @@ class BedrockService {
         body: String
     ) async throws -> String {
 
-        // 1. 写入临时文件
-        let bodyPath = "/tmp/bedrock_input.json"
-        let outputPath = "/tmp/bedrock_output.json"
+        // 1. 使用应用临时目录（避免沙盒权限问题）
+        let tempDir = FileManager.default.temporaryDirectory
+        let bodyPath = tempDir.appendingPathComponent("bedrock_input.json").path
+        let outputPath = tempDir.appendingPathComponent("bedrock_output.json").path
 
         try body.write(toFile: bodyPath, atomically: true, encoding: .utf8)
 

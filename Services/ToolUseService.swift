@@ -196,12 +196,25 @@ class ToolUseService {
         }()
 
         let goal = Goal(
+            id: UUID().uuidString,
             userId: userId,
             title: title,
+            description: nil,
             category: category,
             deadline: deadline,
+            measurableMetric: nil,
             targetValue: parameters["targetValue"] as? Double ?? 100.0,
-            priority: parameters["priority"] as? Int ?? 3
+            currentValue: 0.0,
+            status: GoalStatus.active,
+            priority: parameters["priority"] as? Int ?? 3,
+            subtasks: nil,
+            relatedHabits: nil,
+            budget: nil,
+            aiSuggestions: nil,
+            confidence: 0.8,
+            createdAt: Date(),
+            completedAt: nil,
+            updatedAt: Date()
         )
 
         let goalId = try await db.createGoal(goal)
@@ -229,10 +242,24 @@ class ToolUseService {
         }()
 
         let habit = Habit(
+            id: UUID().uuidString,
             userId: userId,
             name: name,
+            description: nil,
             category: category,
-            frequency: frequency
+            frequency: frequency,
+            targetCount: 1,
+            status: HabitStatus.active,
+            streak: 0,
+            longestStreak: 0,
+            totalCompletions: 0,
+            successRate: 0.0,
+            bestTime: nil,
+            bestDay: nil,
+            relatedGoals: nil,
+            triggers: nil,
+            createdAt: Date(),
+            updatedAt: Date()
         )
 
         let habitId = try await db.createHabit(habit)
