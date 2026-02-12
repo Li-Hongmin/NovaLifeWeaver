@@ -31,20 +31,7 @@ class ChatViewModel: ObservableObject {
         // 添加欢迎消息
         let welcomeMessage = Message(
             role: .assistant,
-            content: """
-            👋 你好！我是 NovaLife，你的 AI 生活助手。
-
-            我可以帮你：
-            • 设定和管理目标
-            • 培养好习惯
-            • 跟踪支出和情绪
-            • 发现数据中的关联模式
-
-            试试对我说：
-            "我想在3月考过JLPT N2"
-            "每天早上跑步30分钟"
-            "今天午餐花了800日元"
-            """
+            content: "👋 你好！我是 NovaLife，你的 AI 生活助手。\n\n我可以通过对话帮你管理生活的方方面面。试试对我说：\n\n\"我想在3月考过JLPT N2\"\n\"每天早上跑步30分钟\"\n\"今天午餐花了800日元\""
         )
 
         self.currentConversation.messages.append(welcomeMessage)
