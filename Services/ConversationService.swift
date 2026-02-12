@@ -11,27 +11,70 @@ class ConversationService {
 
     // MARK: - 主要接口
 
-    /// 处理用户输入（AI-First 流程）
+    /// 处理用户输入（真正的 AI Tool Use 流程）
     func processInput(_ input: String, userId: String, context: UserContext?) async -> ConversationResult {
         print("💬 处理对话：\(input)")
 
-        // 1. 快速意图识别（基于关键词）
-        let intent = detectIntent(input)
-        print("🎯 意图：\(intent)")
-
-        // 2. 根据意图执行工具
         do {
-            let toolResult = try await executeIntentTool(intent: intent, input: input, userId: userId)
+            // 1. 构建消息
+            let messages: [[String: Any]] = [
+                [
+                    "role": "user",
+                    "content": [
+                        ["text": input]
+                    ]
+                ]
+            ]
 
-            return ConversationResult(
-                message: toolResult.message,
-                toolUsed: intent.rawValue,
-                success: toolResult.success,
-                data: toolResult.data
+            // 2. 获取工具定义
+            let tools = toolService.getToolDefinitions()
+
+            print("🤖 调用 Nova AI（带 \(tools.count) 个工具）...")
+
+            // 3. 调用 Nova with Tool Use
+            let response = try await bedrockService.invokeWithTools(
+                messages: messages,
+                tools: tools,
+                model: .lite,
+                maxTokens: 2048,
+                temperature: 0.7
             )
+
+            // 4. 处理响应
+            if let toolUse = response.toolUse {
+                // AI 决定调用工具
+                print("🔧 AI 调用工具：\(toolUse.name)")
+                print("📋 参数：\(toolUse.input)")
+
+                let toolResult = try await toolService.executeTool(
+                    name: toolUse.name,
+                    parameters: toolUse.input,
+                    userId: userId
+                )
+
+                return ConversationResult(
+                    message: toolResult.message,
+                    toolUsed: toolUse.name,
+                    success: toolResult.success,
+                    data: toolResult.data
+                )
+            } else if let text = response.text {
+                // AI 直接回复（不需要工具）
+                print("💬 AI 直接回复")
+                return ConversationResult(
+                    message: text,
+                    toolUsed: nil,
+                    success: true,
+                    data: nil
+                )
+            } else {
+                throw ConversationError.noResponse
+            }
+
         } catch {
+            print("❌ AI 处理失败：\(error)")
             return ConversationResult(
-                message: "❌ 处理失败：\(error.localizedDescription)",
+                message: "抱歉，我遇到了一些问题：\(error.localizedDescription)",
                 toolUsed: nil,
                 success: false,
                 data: nil
@@ -224,4 +267,16 @@ struct ConversationResult {
     let toolUsed: String?
     let success: Bool
     let data: [String: Any]?
+}
+
+/// 对话错误
+enum ConversationError: Error, LocalizedError {
+    case noResponse
+
+    var errorDescription: String? {
+        switch self {
+        case .noResponse:
+            return "AI 没有返回有效响应"
+        }
+    }
 }

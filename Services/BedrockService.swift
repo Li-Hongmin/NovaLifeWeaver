@@ -22,7 +22,7 @@ class BedrockService {
 
     // MARK: - 文本生成
 
-    /// 调用 Nova 文本生成（简化版，使用 AWS CLI）
+    /// 调用 Nova 文本生成（简化版）
     func invokeNova(
         prompt: String,
         model: NovaModel = .lite,
@@ -40,7 +40,7 @@ class BedrockService {
                 ]
             ],
             "inferenceConfig": [
-                "max_new_tokens": maxTokens,
+                "maxTokens": maxTokens,
                 "temperature": temperature
             ]
         ]
@@ -48,13 +48,42 @@ class BedrockService {
         let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
         let jsonString = String(data: jsonData, encoding: .utf8)!
 
-        // 使用 AWS CLI 调用（临时方案，后续可改为 AWS SDK）
         let response = try await executeAWSCLI(
             modelId: model.rawValue,
             body: jsonString
         )
 
         return try parseTextResponse(response)
+    }
+
+    /// 调用 Nova with Tool Use（核心功能）
+    func invokeWithTools(
+        messages: [[String: Any]],
+        tools: [[String: Any]],
+        model: NovaModel = .lite,
+        maxTokens: Int = 2048,
+        temperature: Double = 0.7
+    ) async throws -> ToolUseResponse {
+
+        let requestBody: [String: Any] = [
+            "messages": messages,
+            "tools": tools,
+            "toolChoice": ["auto": [:]],  // 让 AI 自动决定是否使用工具
+            "inferenceConfig": [
+                "maxTokens": maxTokens,
+                "temperature": temperature
+            ]
+        ]
+
+        let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+        let jsonString = String(data: jsonData, encoding: .utf8)!
+
+        let response = try await executeAWSCLI(
+            modelId: model.rawValue,
+            body: jsonString
+        )
+
+        return try parseToolUseResponse(response)
     }
 
     /// 调用 Nova Multimodal（图片 + 文本）
@@ -175,6 +204,44 @@ class BedrockService {
         return text
     }
 
+    /// 解析 Tool Use 响应
+    private func parseToolUseResponse(_ response: String) throws -> ToolUseResponse {
+        guard let data = response.data(using: .utf8),
+              let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let output = json["output"] as? [String: Any],
+              let message = output["message"] as? [String: Any],
+              let content = message["content"] as? [[String: Any]] else {
+            throw BedrockError.invalidResponse
+        }
+
+        var textContent: String?
+        var toolUse: ToolUse?
+
+        // 解析内容块
+        for block in content {
+            if let text = block["text"] as? String {
+                textContent = text
+            } else if let toolUseBlock = block["toolUse"] as? [String: Any],
+                      let toolUseId = toolUseBlock["toolUseId"] as? String,
+                      let name = toolUseBlock["name"] as? String,
+                      let input = toolUseBlock["input"] as? [String: Any] {
+                toolUse = ToolUse(
+                    id: toolUseId,
+                    name: name,
+                    input: input
+                )
+            }
+        }
+
+        let stopReason = json["stopReason"] as? String
+
+        return ToolUseResponse(
+            text: textContent,
+            toolUse: toolUse,
+            stopReason: stopReason
+        )
+    }
+
     /// 解析 Multimodal 响应
     private func parseMultimodalResponse(_ response: String) throws -> MultimodalResponse {
         // 先解析文本
@@ -204,6 +271,20 @@ struct MultimodalResponse {
         self.text = text
         self.structured = structured
     }
+}
+
+/// Tool Use 响应
+struct ToolUseResponse {
+    let text: String?
+    let toolUse: ToolUse?
+    let stopReason: String?
+}
+
+/// 工具调用
+struct ToolUse {
+    let id: String
+    let name: String
+    let input: [String: Any]
 }
 
 /// Bedrock 错误类型
