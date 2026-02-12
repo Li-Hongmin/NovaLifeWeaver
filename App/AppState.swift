@@ -51,6 +51,10 @@ class AppState: ObservableObject {
         errorMessage = nil
 
         do {
+            // 0. 确保数据库已初始化
+            let _ = DatabaseService.shared
+            try? await Task.sleep(nanoseconds: 100_000_000) // 等待 100ms 确保表创建完成
+
             // 1. 获取或创建默认用户
             let userId = await getOrCreateDefaultUser()
 
@@ -184,17 +188,24 @@ class AppState: ObservableObject {
 
     /// 从数据库加载用户
     private func loadUser(userId: String) async throws -> User {
-        // TODO: 从数据库加载用户
-        // 临时返回模拟用户
-        return User(
-            id: userId,
-            name: "李鴻敏",
-            timezone: "Asia/Tokyo",
-            language: "zh-CN",
-            totalGoals: 0,
-            completedGoals: 0,
-            activeHabits: 0
-        )
+        do {
+            // 尝试从数据库加载
+            return try await db.fetchUser(userId)
+        } catch {
+            // 如果用户不存在，创建默认用户
+            print("⚠️ 用户不存在，创建默认用户")
+            let newUser = User(
+                id: userId,
+                name: "李鴻敏",
+                timezone: "Asia/Tokyo",
+                language: "zh-CN",
+                totalGoals: 0,
+                completedGoals: 0,
+                activeHabits: 0
+            )
+            _ = try await db.createUser(newUser)
+            return newUser
+        }
     }
 
     /// 更新应用状态
