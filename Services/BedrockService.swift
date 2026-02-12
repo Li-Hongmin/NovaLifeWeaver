@@ -126,22 +126,18 @@ class BedrockService {
 
         try body.write(toFile: bodyPath, atomically: true, encoding: .utf8)
 
-        // 2. 执行 AWS CLI（使用文件输入）
-        let command = """
-        aws bedrock-runtime invoke-model \
-            --model-id \(modelId) \
-            --region \(region) \
-            --body file://\(bodyPath) \
-            \(outputPath) 2>&1
-        """
+        // 2. 调用 Python 脚本（真实的 boto3 API）
+        let scriptPath = "/tmp/invoke_bedrock.py"
 
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/bash")
-        process.arguments = ["-c", command]
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/python3")
+        process.arguments = [scriptPath, modelId, bodyPath, outputPath]
 
         let pipe = Pipe()
         process.standardOutput = pipe
         process.standardError = pipe
+
+        print("🚀 调用真实 Nova API: \(modelId)")
 
         try process.run()
         process.waitUntilExit()
@@ -149,7 +145,7 @@ class BedrockService {
         let statusOutput = String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
 
         guard process.terminationStatus == 0 else {
-            print("❌ AWS CLI 错误：\(statusOutput)")
+            print("❌ Nova API 调用失败：\(statusOutput)")
             throw BedrockError.apiCallFailed(statusOutput)
         }
 
