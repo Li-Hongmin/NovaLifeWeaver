@@ -38,7 +38,7 @@ class AppState: ObservableObject {
 
     // MARK: - Initialization
 
-    private init() {
+    init() {
         self.contextEngine = ContextEngine.shared
         self.db = DatabaseService.shared
     }

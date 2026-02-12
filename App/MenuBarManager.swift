@@ -1,5 +1,6 @@
 import Cocoa
 import SwiftUI
+import Combine
 
 /// Menu Bar 管理器 - 负责状态栏图标和 Popover 管理
 @MainActor
