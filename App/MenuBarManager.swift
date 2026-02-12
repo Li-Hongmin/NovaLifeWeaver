@@ -24,7 +24,7 @@ class MenuBarManager: NSObject, ObservableObject {
 
     // MARK: - Initialization
 
-    private override init() {
+    override init() {
         super.init()
     }
 

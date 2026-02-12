@@ -15,9 +15,7 @@
 		2031F61A18A0E6D41C75F9C8 /* MenuBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B9ABF638B8FCD9207C890 /* MenuBarViewModel.swift */; };
 		2056058F064F34A63B23D415 /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC203CFA4DCDBC69821C0F7E /* Insight.swift */; };
 		2780D8968913B4E5AD7FBD43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0EA5AC8210E6C479A49D7C /* AppDelegate.swift */; };
-		327D562783CC74EB6250B89C /* AppStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D911AC351023B5E6598B88 /* AppStatus.swift */; };
 		397A1D95C9157E4BA0888398 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2CBE1D93DE7A525A31A98 /* MenuBarManager.swift */; };
-		42B02CA1C073A95E868E2E3F /* AppStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7701331373D41D1B860D3C0 /* AppStatus.swift */; };
 		54F5A39F2063ACEC98984AD3 /* UIProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE20475A1949E837F173ED /* UIProtocols.swift */; };
 		628DA6E460311C564D51A754 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A71287CC08FD5D97CF97E4 /* Goal.swift */; };
 		70173D67597CA4DBC46EBC43 /* HabitTrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612347B49AFBE6417388101E /* HabitTrackingViewModel.swift */; };
@@ -134,10 +132,8 @@
 		A56D80F83AB6541F1C2FE119 /* HabitTrackingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HabitTrackingView.swift; sourceTree = "<group>"; };
 		A6EE5D57965CBFE7D519CEE8 /* ContextEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContextEngine.swift; sourceTree = "<group>"; };
 		AC203CFA4DCDBC69821C0F7E /* Insight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Insight.swift; sourceTree = "<group>"; };
-		B7701331373D41D1B860D3C0 /* AppStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppStatus.swift; path = App/AppStatus.swift; sourceTree = "<group>"; };
 		BE0EA5AC8210E6C479A49D7C /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = App/AppDelegate.swift; sourceTree = "<group>"; };
 		D632724F563AF77C9B02E781 /* MenuBarManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MenuBarManager.swift; path = App/MenuBarManager.swift; sourceTree = "<group>"; };
-		D8D911AC351023B5E6598B88 /* AppStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppStatus.swift; path = App/AppStatus.swift; sourceTree = "<group>"; };
 		D9A2CBE1D93DE7A525A31A98 /* MenuBarManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MenuBarManager.swift; path = App/MenuBarManager.swift; sourceTree = "<group>"; };
 		DFECA6E7F6AB4B0EB02FBA1B /* FinancialRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FinancialRecord.swift; sourceTree = "<group>"; };
 		E1E77DDC6AD9071078EA766C /* User.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -173,11 +169,9 @@
 			children = (
 				17E82BEE90B4415025C49D89 /* AppDelegate.swift */,
 				8C6EA8F586FFAB9F454CF3AE /* AppState.swift */,
-				D8D911AC351023B5E6598B88 /* AppStatus.swift */,
 				D632724F563AF77C9B02E781 /* MenuBarManager.swift */,
 				BE0EA5AC8210E6C479A49D7C /* AppDelegate.swift */,
 				372DE18D82702540074E3A53 /* AppState.swift */,
-				B7701331373D41D1B860D3C0 /* AppStatus.swift */,
 				D9A2CBE1D93DE7A525A31A98 /* MenuBarManager.swift */,
 			);
 			name = App;
@@ -434,7 +428,6 @@
 				8301CEEA2F3D610C0067EDDC /* EmotionRecord.swift in Sources */,
 				12E37C2CC9A9C92A2D517294 /* AppDelegate.swift in Sources */,
 				87DE7F53A7576418751A900A /* AppState.swift in Sources */,
-				327D562783CC74EB6250B89C /* AppStatus.swift in Sources */,
 				D0113F3B012366545C9A0CE2 /* MenuBarManager.swift in Sources */,
 				E75B7D87DBBD5FD51EAE369C /* Correlation.swift in Sources */,
 				0DDFB0E6DD1E0B86CD53948D /* EmotionRecord.swift in Sources */,
@@ -451,7 +444,6 @@
 				54F5A39F2063ACEC98984AD3 /* UIProtocols.swift in Sources */,
 				2780D8968913B4E5AD7FBD43 /* AppDelegate.swift in Sources */,
 				71E1CF0D8EA97D35572AC366 /* AppState.swift in Sources */,
-				42B02CA1C073A95E868E2E3F /* AppStatus.swift in Sources */,
 				397A1D95C9157E4BA0888398 /* MenuBarManager.swift in Sources */,
 				E8659CDB14A271D1327988EE /* ContextEngine.swift in Sources */,
 				711A88083A458CF7E70A0509 /* CorrelationEngine.swift in Sources */,
