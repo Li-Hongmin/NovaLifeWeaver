@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- 禁用沙盒（开发阶段，允许 Python 调用）-->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+
+    <!-- 网络访问（AWS API）-->
+    <key>com.apple.security.network.client</key>
+    <true/>
+
+    <!-- 日历访问 -->
+    <key>com.apple.security.personal-information.calendars</key>
+    <true/>
+</dict>
+</plist>
